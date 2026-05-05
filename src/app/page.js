@@ -1,66 +1,181 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import Link from 'next/link';
+import { getFeaturedJobs, categories, getStats, companies } from '@/lib/data';
+import JobCard from '@/components/JobCard';
+import SearchBar from '@/components/SearchBar';
+import styles from './page.module.css';
 
 export default function Home() {
+  const featuredJobs = getFeaturedJobs();
+  const stats = getStats();
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.js file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <>
+      {/* Hero Section */}
+      <section className={styles.hero}>
+        <div className={styles.heroBackground}>
+          <div className={styles.heroGlow1} />
+          <div className={styles.heroGlow2} />
+          <div className={styles.heroGrid} />
+        </div>
+        <div className={`container ${styles.heroContent}`}>
+          <div className={styles.heroBadge}>
+            <span className={styles.heroBadgeDot} />
+            🚀 Over {stats.totalApplicants.toLocaleString()}+ active job seekers
+          </div>
+          <h1 className={styles.heroTitle}>
+            Find Your <span className={styles.heroGradient}>Dream Job</span><br />
+            At Top Companies
+          </h1>
+          <p className={styles.heroSubtitle}>
+            Discover {stats.totalJobs}+ curated opportunities from {stats.totalCompanies} leading companies.
+            Your next career move starts here.
           </p>
+          <SearchBar />
+          <div className={styles.heroTags}>
+            <span className={styles.heroTagLabel}>Popular:</span>
+            <Link href="/jobs?query=React" className={styles.heroTag}>React</Link>
+            <Link href="/jobs?query=Python" className={styles.heroTag}>Python</Link>
+            <Link href="/jobs?query=Design" className={styles.heroTag}>Design</Link>
+            <Link href="/jobs?remote=Remote" className={styles.heroTag}>Remote</Link>
+            <Link href="/jobs?query=AI" className={styles.heroTag}>AI/ML</Link>
+          </div>
         </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      {/* Stats Section */}
+      <section className={styles.statsSection}>
+        <div className="container">
+          <div className={styles.statsGrid}>
+            <div className={styles.statCard}>
+              <span className={styles.statNumber}>{stats.totalJobs}+</span>
+              <span className={styles.statLabel}>Active Jobs</span>
+            </div>
+            <div className={styles.statCard}>
+              <span className={styles.statNumber}>{stats.totalCompanies}+</span>
+              <span className={styles.statLabel}>Top Companies</span>
+            </div>
+            <div className={styles.statCard}>
+              <span className={styles.statNumber}>{stats.totalApplicants.toLocaleString()}+</span>
+              <span className={styles.statLabel}>Job Seekers</span>
+            </div>
+            <div className={styles.statCard}>
+              <span className={styles.statNumber}>{stats.remoteJobs}+</span>
+              <span className={styles.statLabel}>Remote Jobs</span>
+            </div>
+          </div>
         </div>
-      </main>
-    </div>
+      </section>
+
+      {/* Categories Section */}
+      <section className={`section ${styles.categoriesSection}`}>
+        <div className="container">
+          <div className={styles.sectionHeader}>
+            <h2 className={styles.sectionTitle}>Browse by Category</h2>
+            <p className={styles.sectionSubtitle}>
+              Explore opportunities across various fields and industries
+            </p>
+          </div>
+          <div className={styles.categoriesGrid}>
+            {categories.map((cat, index) => (
+              <Link
+                href={`/jobs?category=${cat.id}`}
+                key={cat.id}
+                className={styles.categoryCard}
+                style={{ animationDelay: `${index * 0.05}s` }}
+                id={`category-${cat.id}`}
+              >
+                <span className={styles.categoryIcon}>{cat.icon}</span>
+                <h3 className={styles.categoryName}>{cat.name}</h3>
+                <span className={styles.categoryCount}>{cat.count} jobs</span>
+                <div className={styles.categoryBar}>
+                  <div
+                    className={styles.categoryBarFill}
+                    style={{ width: `${(cat.count / 1243) * 100}%`, background: cat.color }}
+                  />
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Jobs Section */}
+      <section className={`section ${styles.featuredSection}`}>
+        <div className="container">
+          <div className={styles.sectionHeader}>
+            <div>
+              <h2 className={styles.sectionTitle}>Featured Jobs</h2>
+              <p className={styles.sectionSubtitle}>
+                Hand-picked opportunities from the world&apos;s best companies
+              </p>
+            </div>
+            <Link href="/jobs" className="btn btn-secondary" id="view-all-jobs">
+              View All Jobs →
+            </Link>
+          </div>
+          <div className={styles.jobsGrid}>
+            {featuredJobs.map((job) => (
+              <JobCard key={job.id} job={job} featured />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Companies Section */}
+      <section className={`section ${styles.companiesSection}`}>
+        <div className="container">
+          <div className={styles.sectionHeader}>
+            <div>
+              <h2 className={styles.sectionTitle}>Top Companies Hiring</h2>
+              <p className={styles.sectionSubtitle}>
+                Join innovative teams at industry-leading organizations
+              </p>
+            </div>
+            <Link href="/companies" className="btn btn-secondary" id="view-all-companies">
+              View All Companies →
+            </Link>
+          </div>
+          <div className={styles.companiesGrid}>
+            {companies.slice(0, 6).map((company) => (
+              <Link
+                href={`/companies/${company.id}`}
+                key={company.id}
+                className={styles.companyCard}
+                id={`company-card-${company.id}`}
+              >
+                <span className={styles.companyLogo}>{company.logo}</span>
+                <h3 className={styles.companyName}>{company.name}</h3>
+                <p className={styles.companyIndustry}>{company.industry}</p>
+                <div className={styles.companyMeta}>
+                  <span className={styles.companyRating}>⭐ {company.rating}</span>
+                  <span className={styles.companyJobs}>{company.size} employees</span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className={styles.ctaSection}>
+        <div className="container">
+          <div className={styles.ctaCard}>
+            <div className={styles.ctaGlow} />
+            <h2 className={styles.ctaTitle}>Ready to Find Your Next Role?</h2>
+            <p className={styles.ctaText}>
+              Join thousands of professionals who have found their dream jobs through JobSphere.
+            </p>
+            <div className={styles.ctaButtons}>
+              <Link href="/jobs" className="btn btn-primary btn-lg" id="cta-browse-jobs">
+                Browse All Jobs
+              </Link>
+              <Link href="/post-job" className="btn btn-outline btn-lg" id="cta-post-job">
+                Post a Job
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }
