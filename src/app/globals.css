@@ -20,7 +20,7 @@
   --color-warning: #f59e0b;
   --color-info: #3b82f6;
 
-  /* Neutral Palette */
+  /* Neutral Palette - Light */
   --color-bg: #f8fafc;
   --color-bg-secondary: #f1f5f9;
   --color-bg-card: #ffffff;
@@ -41,8 +41,9 @@
   --gradient-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
   --gradient-hero: linear-gradient(135deg, #0f172a 0%, #1e1b4b 40%, #312e81 100%);
   --gradient-card: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(6, 182, 212, 0.05) 100%);
-  --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 100%);
+  --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.75) 100%);
   --gradient-badge: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  --gradient-subtle: linear-gradient(135deg, rgba(99, 102, 241, 0.03) 0%, rgba(6, 182, 212, 0.03) 100%);
 
   /* Shadows */
   --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
@@ -52,7 +53,8 @@
   --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
   --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
   --shadow-glow: 0 0 30px rgba(99, 102, 241, 0.15);
-  --shadow-card-hover: 0 20px 40px -10px rgba(99, 102, 241, 0.15);
+  --shadow-card-hover: 0 20px 40px -10px rgba(99, 102, 241, 0.15), 0 0 0 1px rgba(99, 102, 241, 0.1);
+  --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
 
   /* Border Radius */
   --radius-sm: 6px;
@@ -107,37 +109,64 @@
   /* Layout */
   --max-width: 1280px;
   --nav-height: 72px;
+
+  /* Theme-aware hero text */
+  --hero-text-primary: #ffffff;
+  --hero-text-secondary: rgba(255, 255, 255, 0.65);
+  --hero-badge-bg: rgba(255, 255, 255, 0.08);
+  --hero-badge-border: rgba(255, 255, 255, 0.12);
+  --hero-badge-text: rgba(255, 255, 255, 0.8);
+  --hero-tag-bg: rgba(255, 255, 255, 0.08);
+  --hero-tag-border: rgba(255, 255, 255, 0.1);
+  --hero-tag-text: rgba(255, 255, 255, 0.7);
+  --hero-tag-hover-bg: rgba(255, 255, 255, 0.15);
+  --hero-glow-1: rgba(99, 102, 241, 0.3);
+  --hero-glow-2: rgba(6, 182, 212, 0.2);
+  --hero-grid-line: rgba(255, 255, 255, 0.03);
 }
 
-/* Dark Mode */
+/* ============================================
+   Dark Mode — Deep Space Theme
+   ============================================ */
 [data-theme="dark"] {
-  --color-bg: #0b0f1a;
-  --color-bg-secondary: #111827;
-  --color-bg-card: #1a1f2e;
-  --color-bg-card-hover: #1e2433;
-  --color-surface: #1a1f2e;
-  --color-surface-elevated: #232839;
+  --color-bg: #06080f;
+  --color-bg-secondary: #0d1117;
+  --color-bg-card: #131a27;
+  --color-bg-card-hover: #182234;
+  --color-surface: #131a27;
+  --color-surface-elevated: #1c2536;
 
-  --color-text: #f1f5f9;
-  --color-text-secondary: #94a3b8;
-  --color-text-tertiary: #64748b;
-  --color-text-inverse: #0f172a;
+  --color-text: #e8edf5;
+  --color-text-secondary: #8b95a9;
+  --color-text-tertiary: #556178;
+  --color-text-inverse: #06080f;
 
-  --color-border: #2d3348;
-  --color-border-light: #1e2433;
-  --color-divider: #2d3348;
+  --color-border: #1e293b;
+  --color-border-light: #151d2b;
+  --color-divider: #1e293b;
 
-  --gradient-glass: linear-gradient(135deg, rgba(26,31,46,0.95) 0%, rgba(26,31,46,0.8) 100%);
-  --gradient-card: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(6, 182, 212, 0.08) 100%);
+  --gradient-glass: linear-gradient(135deg, rgba(19,26,39,0.95) 0%, rgba(19,26,39,0.82) 100%);
+  --gradient-card: linear-gradient(135deg, rgba(99, 102, 241, 0.06) 0%, rgba(6, 182, 212, 0.06) 100%);
+  --gradient-subtle: linear-gradient(135deg, rgba(99, 102, 241, 0.04) 0%, rgba(6, 182, 212, 0.04) 100%);
+  --gradient-hero: linear-gradient(135deg, #06080f 0%, #0d1025 40%, #15133b 100%);
 
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
-  --shadow-card-hover: 0 20px 40px -10px rgba(99, 102, 241, 0.25);
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+  --shadow-card-hover: 0 20px 40px -10px rgba(99, 102, 241, 0.2), 0 0 0 1px rgba(99, 102, 241, 0.15);
+  --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+
+  --hero-glow-1: rgba(99, 102, 241, 0.2);
+  --hero-glow-2: rgba(6, 182, 212, 0.12);
+  --hero-grid-line: rgba(255, 255, 255, 0.02);
 }
 
-/* Global Reset */
+/* ============================================
+   Global Reset
+   ============================================ */
 *,
 *::before,
 *::after {
@@ -158,7 +187,9 @@ body {
   color: var(--color-text);
   line-height: 1.6;
   min-height: 100vh;
-  transition: background-color var(--transition-base), color var(--transition-base);
+  transition:
+    background-color 0.4s ease,
+    color 0.3s ease;
 }
 
 a {
@@ -197,6 +228,30 @@ input, select, textarea {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-text-secondary);
+}
+
+/* ============================================
+   Smooth Theme Transitions
+   ============================================ */
+.card,
+.card-glass,
+.badge,
+.tag,
+.btn-secondary,
+.btn-ghost,
+.input,
+nav,
+header,
+footer,
+main,
+aside,
+section,
+article {
+  transition:
+    background-color 0.4s ease,
+    border-color 0.3s ease,
+    color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 /* ============================================
@@ -298,6 +353,11 @@ input, select, textarea {
 @keyframes spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
 }
 
 .animate-fade-in-up {
@@ -615,11 +675,13 @@ select.input {
   color: var(--color-text-secondary);
   font-weight: 500;
   transition: all var(--transition-fast);
+  border: 1px solid transparent;
 }
 
 .tag:hover {
   background: rgba(99, 102, 241, 0.12);
   color: var(--color-primary);
+  border-color: rgba(99, 102, 241, 0.15);
 }
 
 /* Tooltip */
