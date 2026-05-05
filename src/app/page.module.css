@@ -149,39 +149,12 @@
 }
 
 .statCard {
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-xl);
   padding: var(--space-6);
   text-align: center;
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
-  box-shadow: var(--shadow-lg);
-  transition: all var(--transition-base);
-  position: relative;
-  overflow: hidden;
-}
-
-.statCard::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: var(--gradient-primary);
-  opacity: 0;
-  transition: opacity var(--transition-base);
-}
-
-.statCard:hover::after {
-  opacity: 1;
-}
-
-.statCard:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-xl);
+  border-radius: inherit;
 }
 
 .statNumber {
@@ -234,41 +207,14 @@
 }
 
 .categoryCard {
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-xl);
   padding: var(--space-6);
   text-decoration: none;
   color: var(--color-text);
-  transition: all var(--transition-base);
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
   animation: fadeInUp 0.5s ease-out both;
-  position: relative;
-  overflow: hidden;
-}
-
-.categoryCard::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: var(--gradient-primary);
-  transform: scaleX(0);
-  transition: transform 0.3s ease;
-}
-
-.categoryCard:hover {
-  border-color: var(--color-primary-light);
-  box-shadow: var(--shadow-card-hover);
-  transform: translateY(-4px);
-}
-
-.categoryCard:hover::before {
-  transform: scaleX(1);
+  border-radius: inherit;
 }
 
 .categoryIcon {
@@ -324,24 +270,15 @@
 }
 
 .companyCard {
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-xl);
   padding: var(--space-8);
   text-align: center;
   text-decoration: none;
   color: var(--color-text);
-  transition: all var(--transition-base);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: var(--space-2);
-}
-
-.companyCard:hover {
-  border-color: var(--color-primary-light);
-  box-shadow: var(--shadow-card-hover);
-  transform: translateY(-4px);
+  border-radius: inherit;
 }
 
 .companyLogo {

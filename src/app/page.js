@@ -2,11 +2,19 @@ import Link from 'next/link';
 import { getFeaturedJobs, categories, getStats, companies } from '@/lib/data';
 import JobCard from '@/components/JobCard';
 import SearchBar from '@/components/SearchBar';
+import GlowCard from '@/components/GlowCard';
 import styles from './page.module.css';
 
 export default function Home() {
   const featuredJobs = getFeaturedJobs();
   const stats = getStats();
+
+  const statItems = [
+    { value: `${stats.totalJobs}+`, label: 'Active Jobs' },
+    { value: `${stats.totalCompanies}+`, label: 'Top Companies' },
+    { value: `${stats.totalApplicants.toLocaleString()}+`, label: 'Job Seekers' },
+    { value: `${stats.remoteJobs}+`, label: 'Remote Jobs' },
+  ];
 
   return (
     <>
@@ -46,22 +54,22 @@ export default function Home() {
       <section className={styles.statsSection}>
         <div className="container">
           <div className={styles.statsGrid}>
-            <div className={styles.statCard}>
-              <span className={styles.statNumber}>{stats.totalJobs}+</span>
-              <span className={styles.statLabel}>Active Jobs</span>
-            </div>
-            <div className={styles.statCard}>
-              <span className={styles.statNumber}>{stats.totalCompanies}+</span>
-              <span className={styles.statLabel}>Top Companies</span>
-            </div>
-            <div className={styles.statCard}>
-              <span className={styles.statNumber}>{stats.totalApplicants.toLocaleString()}+</span>
-              <span className={styles.statLabel}>Job Seekers</span>
-            </div>
-            <div className={styles.statCard}>
-              <span className={styles.statNumber}>{stats.remoteJobs}+</span>
-              <span className={styles.statLabel}>Remote Jobs</span>
-            </div>
+            {statItems.map((stat) => (
+              <GlowCard
+                key={stat.label}
+                borderRadius={20}
+                glowRadius={20}
+                glowIntensity={0.5}
+                edgeSensitivity={50}
+                fillOpacity={0.2}
+                colors={['#6366f1', '#06b6d4', '#8b5cf6']}
+              >
+                <div className={styles.statCard}>
+                  <span className={styles.statNumber}>{stat.value}</span>
+                  <span className={styles.statLabel}>{stat.label}</span>
+                </div>
+              </GlowCard>
+            ))}
           </div>
         </div>
       </section>
@@ -77,23 +85,32 @@ export default function Home() {
           </div>
           <div className={styles.categoriesGrid}>
             {categories.map((cat, index) => (
-              <Link
-                href={`/jobs?category=${cat.id}`}
+              <GlowCard
                 key={cat.id}
-                className={styles.categoryCard}
-                style={{ animationDelay: `${index * 0.05}s` }}
-                id={`category-${cat.id}`}
+                borderRadius={20}
+                glowRadius={18}
+                glowIntensity={0.4}
+                edgeSensitivity={50}
+                fillOpacity={0.15}
+                colors={[cat.color || '#6366f1', '#8b5cf6', '#06b6d4']}
               >
-                <span className={styles.categoryIcon}>{cat.icon}</span>
-                <h3 className={styles.categoryName}>{cat.name}</h3>
-                <span className={styles.categoryCount}>{cat.count} jobs</span>
-                <div className={styles.categoryBar}>
-                  <div
-                    className={styles.categoryBarFill}
-                    style={{ width: `${(cat.count / 1243) * 100}%`, background: cat.color }}
-                  />
-                </div>
-              </Link>
+                <Link
+                  href={`/jobs?category=${cat.id}`}
+                  className={styles.categoryCard}
+                  style={{ animationDelay: `${index * 0.05}s` }}
+                  id={`category-${cat.id}`}
+                >
+                  <span className={styles.categoryIcon}>{cat.icon}</span>
+                  <h3 className={styles.categoryName}>{cat.name}</h3>
+                  <span className={styles.categoryCount}>{cat.count} jobs</span>
+                  <div className={styles.categoryBar}>
+                    <div
+                      className={styles.categoryBarFill}
+                      style={{ width: `${(cat.count / 1243) * 100}%`, background: cat.color }}
+                    />
+                  </div>
+                </Link>
+              </GlowCard>
             ))}
           </div>
         </div>
@@ -137,20 +154,29 @@ export default function Home() {
           </div>
           <div className={styles.companiesGrid}>
             {companies.slice(0, 6).map((company) => (
-              <Link
-                href={`/companies/${company.id}`}
+              <GlowCard
                 key={company.id}
-                className={styles.companyCard}
-                id={`company-card-${company.id}`}
+                borderRadius={20}
+                glowRadius={22}
+                glowIntensity={0.5}
+                edgeSensitivity={45}
+                fillOpacity={0.2}
+                colors={['#6366f1', '#f59e0b', '#06b6d4']}
               >
-                <span className={styles.companyLogo}>{company.logo}</span>
-                <h3 className={styles.companyName}>{company.name}</h3>
-                <p className={styles.companyIndustry}>{company.industry}</p>
-                <div className={styles.companyMeta}>
-                  <span className={styles.companyRating}>⭐ {company.rating}</span>
-                  <span className={styles.companyJobs}>{company.size} employees</span>
-                </div>
-              </Link>
+                <Link
+                  href={`/companies/${company.id}`}
+                  className={styles.companyCard}
+                  id={`company-card-${company.id}`}
+                >
+                  <span className={styles.companyLogo}>{company.logo}</span>
+                  <h3 className={styles.companyName}>{company.name}</h3>
+                  <p className={styles.companyIndustry}>{company.industry}</p>
+                  <div className={styles.companyMeta}>
+                    <span className={styles.companyRating}>⭐ {company.rating}</span>
+                    <span className={styles.companyJobs}>{company.size} employees</span>
+                  </div>
+                </Link>
+              </GlowCard>
             ))}
           </div>
         </div>
