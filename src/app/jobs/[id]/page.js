@@ -1,30 +1,27 @@
+'use client';
+
+import { use, useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getJobWithCompany, jobs, formatSalary, timeAgo, getJobsByCompany, getJobsByCategory, getCompany } from '@/lib/data';
+import { getJobWithCompany, formatSalary, timeAgo, getJobsByCompany, getJobsByCategory, getCompany } from '@/lib/data';
 import ApplyButton from '@/components/ApplyButton';
 import BookmarkButton from '@/components/BookmarkButton';
 import ShareJob from '@/components/ShareJob';
 import styles from './page.module.css';
 
-export async function generateStaticParams() {
-  return jobs.map((job) => ({
-    id: job.id,
-  }));
-}
+export default function JobDetailPage({ params }) {
+  const resolvedParams = use(params);
+  const id = resolvedParams.id;
+  
+  const [jobData, setJobData] = useState(null);
+  const [mounted, setMounted] = useState(false);
 
-export async function generateMetadata({ params }) {
-  const { id } = await params;
-  const jobData = getJobWithCompany(id);
-  if (!jobData) return { title: 'Job Not Found' };
-  return {
-    title: `${jobData.title} at ${jobData.companyData?.name}`,
-    description: jobData.description.slice(0, 160),
-  };
-}
+  useEffect(() => {
+    setJobData(getJobWithCompany(id));
+    setMounted(true);
+  }, [id]);
 
-export default async function JobDetailPage({ params }) {
-  const { id } = await params;
-  const jobData = getJobWithCompany(id);
+  if (!mounted) return <div style={{ padding: '4rem', textAlign: 'center' }}>Loading job details...</div>;
 
   if (!jobData) {
     return (
@@ -60,7 +57,13 @@ export default async function JobDetailPage({ params }) {
             {/* Job Header */}
             <div className={styles.jobHeader}>
               <div className={styles.headerTop}>
-                <div className={styles.companyLogo}><Image src={company?.logo} alt={company?.name || ''} width={48} height={48} /></div>
+                <div className={styles.companyLogo}>
+                  {company?.logo ? (
+                    <Image src={company.logo} alt={company.name || ''} width={48} height={48} />
+                  ) : (
+                    <div style={{ width: 48, height: 48, background: 'var(--color-bg-secondary)', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24 }}>🏢</div>
+                  )}
+                </div>
                 <div className={styles.headerInfo}>
                   <Link href={`/companies/${company?.id}`} className={styles.companyLink}>
                     {company?.name}
@@ -164,7 +167,13 @@ export default async function JobDetailPage({ params }) {
             <div className={styles.sideCard}>
               <h3 className={styles.sideCardTitle}>About the Company</h3>
               <Link href={`/companies/${company?.id}`} className={styles.companyCardLink}>
-                <div className={styles.companyCardLogo}><Image src={company?.logo} alt={company?.name || ''} width={40} height={40} /></div>
+                <div className={styles.companyCardLogo}>
+                  {company?.logo ? (
+                    <Image src={company.logo} alt={company.name || ''} width={40} height={40} />
+                  ) : (
+                    <div style={{ width: 40, height: 40, background: 'var(--color-bg-secondary)', borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20 }}>🏢</div>
+                  )}
+                </div>
                 <span className={styles.companyCardName}>{company?.name}</span>
               </Link>
               <p className={styles.companyCardDesc}>{company?.description}</p>

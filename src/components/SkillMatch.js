@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { jobs, getCompany, formatSalary } from '@/lib/data';
+import { getAllJobs, getCompany, formatSalary } from '@/lib/data';
 import Link from 'next/link';
 import styles from './SkillMatch.module.css';
 
@@ -40,7 +40,8 @@ export default function SkillMatch() {
   const findMatches = () => {
     if (selectedSkills.length === 0) return;
 
-    const scored = jobs.map(job => {
+    const allJobs = getAllJobs();
+    const scored = allJobs.map(job => {
       const jobSkillsLower = job.skills.map(s => s.toLowerCase());
       const matchCount = selectedSkills.filter(s =>
         jobSkillsLower.includes(s.toLowerCase())

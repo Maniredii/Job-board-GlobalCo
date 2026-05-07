@@ -590,30 +590,43 @@ This is an exciting opportunity to shape the future of design collaboration and 
 ];
 
 // Helper functions
+export function getAllJobs() {
+  let allJobs = [...jobs];
+  if (typeof window !== 'undefined') {
+    try {
+      const userJobs = JSON.parse(localStorage.getItem('jobsphere-user-jobs') || '[]');
+      allJobs = [...userJobs, ...allJobs];
+    } catch (e) {
+      console.error('Failed to load user jobs', e);
+    }
+  }
+  return allJobs;
+}
+
 export function getCompany(companyId) {
   return companies.find(c => c.id === companyId);
 }
 
 export function getJob(jobId) {
-  return jobs.find(j => j.id === jobId);
+  return getAllJobs().find(j => j.id === jobId);
 }
 
 export function getJobWithCompany(jobId) {
   const job = getJob(jobId);
   if (!job) return null;
-  return { ...job, companyData: getCompany(job.company) };
+  return { ...job, companyData: getCompany(job.company) || job.companyMeta };
 }
 
 export function getJobsByCompany(companyId) {
-  return jobs.filter(j => j.company === companyId);
+  return getAllJobs().filter(j => j.company === companyId);
 }
 
 export function getJobsByCategory(categoryId) {
-  return jobs.filter(j => j.category === categoryId);
+  return getAllJobs().filter(j => j.category === categoryId);
 }
 
 export function getFeaturedJobs() {
-  return jobs.filter(j => j.featured);
+  return getAllJobs().filter(j => j.featured);
 }
 
 export function addJob(formData) {
@@ -654,12 +667,22 @@ export function addJob(formData) {
     },
   };
 
+  if (typeof window !== 'undefined') {
+    try {
+      const userJobs = JSON.parse(localStorage.getItem('jobsphere-user-jobs') || '[]');
+      userJobs.unshift(newJob);
+      localStorage.setItem('jobsphere-user-jobs', JSON.stringify(userJobs));
+    } catch (e) {
+      console.error('Failed to save user job', e);
+    }
+  }
+
   jobs.unshift(newJob);
   return newJob;
 }
 
 export function searchJobs({ query, category, type, level, remote, location, sortBy = 'newest', minSalary, passoutYear }) {
-  let results = [...jobs];
+  let results = getAllJobs();
 
   if (query) {
     const q = query.toLowerCase();

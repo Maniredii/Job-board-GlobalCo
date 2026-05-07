@@ -1,34 +1,42 @@
+'use client';
+
+import { Suspense, useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { searchJobs, categories } from '@/lib/data';
 import JobCard from '@/components/JobCard';
 import JobFilters from '@/components/JobFilters';
 import Pagination from '@/components/Pagination';
 import styles from './page.module.css';
 
-export const metadata = {
-  title: 'Find Jobs',
-  description: 'Browse and search through hundreds of job opportunities from top companies. Filter by category, location, salary, and more.',
-};
-
 const JOBS_PER_PAGE = 6;
 
-export default async function JobsPage({ searchParams }) {
-  const params = await searchParams;
-  const query = params?.query || '';
-  const category = params?.category || '';
-  const type = params?.type || '';
-  const level = params?.level || '';
-  const remote = params?.remote || '';
-  const location = params?.location || '';
-  const minSalary = params?.minSalary || '';
-  const passoutYear = params?.passoutYear || '';
-  const sortBy = params?.sortBy || 'newest';
-  const currentPage = parseInt(params?.page || '1', 10);
+function JobsContent() {
+  const searchParams = useSearchParams();
+  const [mounted, setMounted] = useState(false);
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const query = searchParams.get('query') || '';
+  const category = searchParams.get('category') || '';
+  const type = searchParams.get('type') || '';
+  const level = searchParams.get('level') || '';
+  const remote = searchParams.get('remote') || '';
+  const location = searchParams.get('location') || '';
+  const minSalary = searchParams.get('minSalary') || '';
+  const passoutYear = searchParams.get('passoutYear') || '';
+  const sortBy = searchParams.get('sortBy') || 'newest';
+  const currentPage = parseInt(searchParams.get('page') || '1', 10);
+
+  // We pass all filters. In the client, searchJobs will read localStorage!
   const filteredJobs = searchJobs({ query, category, type, level, remote, location, sortBy, minSalary, passoutYear });
   const activeCategory = categories.find(c => c.id === category);
 
   const startIndex = (currentPage - 1) * JOBS_PER_PAGE;
   const paginatedJobs = filteredJobs.slice(startIndex, startIndex + JOBS_PER_PAGE);
+
+  if (!mounted) return null;
 
   return (
     <div className={styles.page}>
@@ -91,4 +99,13 @@ export default async function JobsPage({ searchParams }) {
     </div>
   );
 }
+
+export default function JobsPage() {
+  return (
+    <Suspense fallback={<div style={{ padding: '4rem', textAlign: 'center' }}>Loading jobs...</div>}>
+      <JobsContent />
+    </Suspense>
+  );
+}
+
 

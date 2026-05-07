@@ -15,7 +15,7 @@ const BorderGlow = dynamic(() => import('@/components/BorderGlow'), {
 });
 
 export default function JobCard({ job, featured = false }) {
-  const company = getCompany(job.company);
+  const company = getCompany(job.company) || job.companyMeta;
   const { theme } = useTheme();
 
   const bgColor = theme === 'dark' ? '#131a27' : '#ffffff';
@@ -40,7 +40,15 @@ export default function JobCard({ job, featured = false }) {
         {featured && <div className={styles.featuredBadge}>⭐ Featured</div>}
 
         <div className={styles.header}>
-          <div className={styles.companyLogo}><Image src={company?.logo || ''} alt={company?.name || ''} width={32} height={32} /></div>
+          <div className={styles.companyLogo}>
+            {company?.logo ? (
+              <Image src={company.logo} alt={company.name || ''} width={32} height={32} />
+            ) : (
+              <div style={{ width: 32, height: 32, background: 'var(--color-bg-secondary)', borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16 }}>
+                🏢
+              </div>
+            )}
+          </div>
           <div className={styles.headerInfo}>
             <span className={styles.companyName}>{company?.name}</span>
             <span className={styles.posted}>{timeAgo(job.postedDate)}</span>
