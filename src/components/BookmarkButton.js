@@ -1,12 +1,14 @@
 'use client';
 
 import { useState, useSyncExternalStore } from 'react';
+import { useToast } from '@/components/Toast';
 import styles from './BookmarkButton.module.css';
 
 const emptySubscribe = () => () => {};
 
 export default function BookmarkButton({ jobId }) {
   const mounted = useSyncExternalStore(emptySubscribe, () => true, () => false);
+  const { addToast } = useToast();
 
   const [bookmarked, setBookmarked] = useState(false);
   const [lastJobId, setLastJobId] = useState(null);
@@ -28,6 +30,7 @@ export default function BookmarkButton({ jobId }) {
     }
     localStorage.setItem('jobsphere-bookmarks', JSON.stringify(updated));
     setBookmarked(!bookmarked);
+    addToast(!bookmarked ? '🔖 Job saved to bookmarks' : 'Removed from bookmarks', !bookmarked ? 'success' : 'info');
   };
 
   return (

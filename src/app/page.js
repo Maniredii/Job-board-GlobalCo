@@ -4,6 +4,7 @@ import { getFeaturedJobs, categories, getStats, companies } from '@/lib/data';
 import JobCard from '@/components/JobCard';
 import SearchBar from '@/components/SearchBar';
 import GlowCard from '@/components/GlowCard';
+import SkillMatch from '@/components/SkillMatch';
 import styles from './page.module.css';
 
 export default function Home() {
@@ -138,6 +139,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Skill Match Section */}
+      <SkillMatch />
 
       {/* Companies Section */}
       <section className={`section ${styles.companiesSection}`}>

@@ -1,12 +1,15 @@
 import { searchJobs, categories } from '@/lib/data';
 import JobCard from '@/components/JobCard';
 import JobFilters from '@/components/JobFilters';
+import Pagination from '@/components/Pagination';
 import styles from './page.module.css';
 
 export const metadata = {
   title: 'Find Jobs',
   description: 'Browse and search through hundreds of job opportunities from top companies. Filter by category, location, salary, and more.',
 };
+
+const JOBS_PER_PAGE = 6;
 
 export default async function JobsPage({ searchParams }) {
   const params = await searchParams;
@@ -19,9 +22,13 @@ export default async function JobsPage({ searchParams }) {
   const minSalary = params?.minSalary || '';
   const passoutYear = params?.passoutYear || '';
   const sortBy = params?.sortBy || 'newest';
+  const currentPage = parseInt(params?.page || '1', 10);
 
   const filteredJobs = searchJobs({ query, category, type, level, remote, location, sortBy, minSalary, passoutYear });
   const activeCategory = categories.find(c => c.id === category);
+
+  const startIndex = (currentPage - 1) * JOBS_PER_PAGE;
+  const paginatedJobs = filteredJobs.slice(startIndex, startIndex + JOBS_PER_PAGE);
 
   return (
     <div className={styles.page}>
@@ -54,13 +61,13 @@ export default async function JobsPage({ searchParams }) {
               {/* Sort Bar */}
               <div className={styles.sortBar}>
                 <span className={styles.resultCount}>
-                  Showing <strong>{filteredJobs.length}</strong> jobs
+                  Showing <strong>{startIndex + 1}–{Math.min(startIndex + JOBS_PER_PAGE, filteredJobs.length)}</strong> of <strong>{filteredJobs.length}</strong> jobs
                 </span>
               </div>
 
-              {filteredJobs.length > 0 ? (
+              {paginatedJobs.length > 0 ? (
                 <div className={styles.jobsList}>
-                  {filteredJobs.map((job) => (
+                  {paginatedJobs.map((job) => (
                     <JobCard key={job.id} job={job} featured={job.featured} />
                   ))}
                 </div>
@@ -71,6 +78,12 @@ export default async function JobsPage({ searchParams }) {
                   <p>Try adjusting your search criteria or clearing filters.</p>
                 </div>
               )}
+
+              <Pagination
+                totalItems={filteredJobs.length}
+                itemsPerPage={JOBS_PER_PAGE}
+                currentPage={currentPage}
+              />
             </div>
           </div>
         </div>
@@ -78,3 +91,4 @@ export default async function JobsPage({ searchParams }) {
     </div>
   );
 }
+

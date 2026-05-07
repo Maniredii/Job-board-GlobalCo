@@ -4,10 +4,12 @@ import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { categories, indianCities, addJob } from '@/lib/data';
+import { useToast } from '@/components/Toast';
 import styles from './page.module.css';
 
 export default function PostJobPage() {
   const router = useRouter();
+  const { addToast } = useToast();
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
   const [locationQuery, setLocationQuery] = useState('');
@@ -73,6 +75,7 @@ export default function PostJobPage() {
     e.preventDefault();
     addJob(formData);
     setSubmitted(true);
+    addToast(`🚀 "${formData.title}" posted successfully!`, 'success');
   };
 
   const totalSteps = 3;

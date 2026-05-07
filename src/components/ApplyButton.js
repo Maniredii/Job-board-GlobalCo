@@ -1,11 +1,13 @@
 'use client';
 
 import { useState } from 'react';
+import { useToast } from '@/components/Toast';
 import styles from './ApplyButton.module.css';
 
 export default function ApplyButton({ jobTitle, companyName }) {
   const [showModal, setShowModal] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const { addToast } = useToast();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -19,6 +21,7 @@ export default function ApplyButton({ jobTitle, companyName }) {
     // Simulate submission
     setTimeout(() => {
       setSubmitted(true);
+      addToast(`🎉 Application submitted for ${jobTitle}!`, 'success');
     }, 800);
   };
 

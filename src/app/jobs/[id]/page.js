@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { getJobWithCompany, jobs, formatSalary, timeAgo, getJobsByCompany, getJobsByCategory, getCompany } from '@/lib/data';
 import ApplyButton from '@/components/ApplyButton';
 import BookmarkButton from '@/components/BookmarkButton';
+import ShareJob from '@/components/ShareJob';
 import styles from './page.module.css';
 
 export async function generateStaticParams() {
@@ -83,16 +84,23 @@ export default async function JobDetailPage({ params }) {
               </div>
 
               <div className={styles.headerTags}>
+                {jobData.userPosted && (
+                  <span className="badge badge-warning">👤 User Posted</span>
+                )}
                 <span className={`badge ${jobData.remote === 'Remote' ? 'badge-success' : jobData.remote === 'Hybrid' ? 'badge-warning' : 'badge-secondary'}`}>
                   {jobData.remote}
                 </span>
                 <span className="badge badge-primary">{jobData.level}</span>
                 <span className="badge badge-info">{jobData.category}</span>
+                {jobData.passoutYear && (
+                  <span className="badge badge-secondary">🎓 Batch of {jobData.passoutYear}</span>
+                )}
               </div>
 
               <div className={styles.headerActions}>
                 <ApplyButton jobTitle={jobData.title} companyName={company?.name} />
                 <BookmarkButton jobId={jobData.id} />
+                <ShareJob jobTitle={jobData.title} jobId={jobData.id} />
               </div>
             </div>
 
