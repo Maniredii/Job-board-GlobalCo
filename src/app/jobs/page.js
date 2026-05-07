@@ -1,6 +1,6 @@
 'use client';
 
-import { Suspense, useState, useEffect } from 'react';
+import { Suspense, useSyncExternalStore } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { searchJobs, categories } from '@/lib/data';
 import JobCard from '@/components/JobCard';
@@ -9,14 +9,11 @@ import Pagination from '@/components/Pagination';
 import styles from './page.module.css';
 
 const JOBS_PER_PAGE = 6;
+const emptySubscribe = () => () => {};
 
 function JobsContent() {
   const searchParams = useSearchParams();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = useSyncExternalStore(emptySubscribe, () => true, () => false);
 
   const query = searchParams.get('query') || '';
   const category = searchParams.get('category') || '';

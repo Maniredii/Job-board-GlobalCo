@@ -1,6 +1,6 @@
 'use client';
 
-import { use, useEffect, useState } from 'react';
+import { use, useSyncExternalStore } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { getJobWithCompany, formatSalary, timeAgo, getJobsByCompany, getJobsByCategory, getCompany } from '@/lib/data';
@@ -9,17 +9,14 @@ import BookmarkButton from '@/components/BookmarkButton';
 import ShareJob from '@/components/ShareJob';
 import styles from './page.module.css';
 
+const emptySubscribe = () => () => {};
+
 export default function JobDetailPage({ params }) {
   const resolvedParams = use(params);
   const id = resolvedParams.id;
   
-  const [jobData, setJobData] = useState(null);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setJobData(getJobWithCompany(id));
-    setMounted(true);
-  }, [id]);
+  const mounted = useSyncExternalStore(emptySubscribe, () => true, () => false);
+  const jobData = mounted ? getJobWithCompany(id) : null;
 
   if (!mounted) return <div style={{ padding: '4rem', textAlign: 'center' }}>Loading job details...</div>;
 
