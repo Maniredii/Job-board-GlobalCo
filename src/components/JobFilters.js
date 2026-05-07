@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
-import { categories } from '@/lib/data';
+import { categories, indianCities, indianStates } from '@/lib/data';
 import styles from './JobFilters.module.css';
 
 export default function JobFilters({ currentFilters }) {
@@ -126,22 +126,45 @@ export default function JobFilters({ currentFilters }) {
         </div>
       </div>
 
+      {/* Location (City/State) */}
+      <div className={styles.filterGroup}>
+        <label className={styles.filterLabel}>Location</label>
+        <div className={styles.filterOptions}>
+          <button
+            onClick={() => updateFilter('location', '')}
+            className={`${styles.filterOption} ${!currentFilters.location ? styles.active : ''}`}
+          >
+            All India
+          </button>
+          {indianStates.slice(0, 8).map((state) => (
+            <button
+              key={state}
+              onClick={() => updateFilter('location', state)}
+              className={`${styles.filterOption} ${currentFilters.location === state ? styles.active : ''}`}
+              id={`filter-state-${state.toLowerCase().replace(/\s+/g, '-')}`}
+            >
+              {state}
+            </button>
+          ))}
+        </div>
+      </div>
+
       {/* Salary Range */}
       <div className={styles.filterGroup}>
         <label className={styles.filterLabel}>Minimum Salary</label>
         <div className={styles.sliderWrapper}>
           <input
             type="range"
-            min="50000"
-            max="300000"
-            step="10000"
+            min="500000"
+            max="6000000"
+            step="500000"
             className={styles.slider}
-            value={currentFilters.minSalary || 50000}
+            value={currentFilters.minSalary || 500000}
             onChange={(e) => updateFilter('minSalary', e.target.value)}
             id="filter-salary-slider"
           />
           <div className={styles.sliderValue}>
-            ${parseInt(currentFilters.minSalary || 50000).toLocaleString()}+
+            ₹{(parseInt(currentFilters.minSalary || 500000) / 100000).toFixed(1)}L+
           </div>
         </div>
       </div>

@@ -2,6 +2,36 @@
 // JobSphere — Mock Data & Data Utilities
 // ============================================
 
+// Indian Cities & States for location filtering
+export const indianStates = [
+  'Andhra Pradesh', 'Karnataka', 'Kerala', 'Maharashtra', 'Tamil Nadu',
+  'Telangana', 'Delhi', 'Gujarat', 'Rajasthan', 'West Bengal',
+  'Uttar Pradesh', 'Madhya Pradesh', 'Punjab', 'Haryana',
+];
+
+export const indianCities = [
+  { city: 'Bengaluru', state: 'Karnataka' },
+  { city: 'Hyderabad', state: 'Telangana' },
+  { city: 'Mumbai', state: 'Maharashtra' },
+  { city: 'Pune', state: 'Maharashtra' },
+  { city: 'Chennai', state: 'Tamil Nadu' },
+  { city: 'New Delhi', state: 'Delhi' },
+  { city: 'Gurugram', state: 'Haryana' },
+  { city: 'Noida', state: 'Uttar Pradesh' },
+  { city: 'Kolkata', state: 'West Bengal' },
+  { city: 'Ahmedabad', state: 'Gujarat' },
+  { city: 'Jaipur', state: 'Rajasthan' },
+  { city: 'Thiruvananthapuram', state: 'Kerala' },
+  { city: 'Kochi', state: 'Kerala' },
+  { city: 'Coimbatore', state: 'Tamil Nadu' },
+  { city: 'Indore', state: 'Madhya Pradesh' },
+  { city: 'Chandigarh', state: 'Punjab' },
+  { city: 'Visakhapatnam', state: 'Andhra Pradesh' },
+  { city: 'Nagpur', state: 'Maharashtra' },
+  { city: 'Lucknow', state: 'Uttar Pradesh' },
+  { city: 'Bhopal', state: 'Madhya Pradesh' },
+];
+
 export const companies = [
   {
     id: 'google',
@@ -12,7 +42,7 @@ export const companies = [
     founded: 1998,
     website: 'https://google.com',
     description: 'A multinational technology company specializing in Internet-related services and products.',
-    location: 'Mountain View, CA',
+    location: 'Bengaluru, Karnataka',
     culture: ['Innovation', 'Collaboration', 'Impact'],
     benefits: ['Health Insurance', '401(k)', 'Remote Work', 'Gym Membership', 'Free Meals'],
     rating: 4.5,
@@ -27,7 +57,7 @@ export const companies = [
     founded: 1975,
     website: 'https://microsoft.com',
     description: 'A multinational technology corporation producing computer software, consumer electronics, and related services.',
-    location: 'Redmond, WA',
+    location: 'Hyderabad, Telangana',
     culture: ['Growth Mindset', 'Diversity', 'Innovation'],
     benefits: ['Health Insurance', '401(k)', 'Stock Options', 'Parental Leave', 'Education Budget'],
     rating: 4.3,
@@ -42,7 +72,7 @@ export const companies = [
     founded: 2010,
     website: 'https://stripe.com',
     description: 'A financial infrastructure platform for businesses, processing payments for internet businesses.',
-    location: 'San Francisco, CA',
+    location: 'Mumbai, Maharashtra',
     culture: ['Meritocracy', 'Transparency', 'User Focus'],
     benefits: ['Health Insurance', 'Equity', 'Remote Work', 'Learning Budget', 'Wellness Stipend'],
     rating: 4.6,
@@ -57,7 +87,7 @@ export const companies = [
     founded: 2008,
     website: 'https://airbnb.com',
     description: 'An online marketplace for lodging, primarily homestays for vacation rentals, and tourism activities.',
-    location: 'San Francisco, CA',
+    location: 'Gurugram, Haryana',
     culture: ['Belonging', 'Adventure', 'Creativity'],
     benefits: ['Travel Credits', 'Health Insurance', 'Remote Work', 'Stock Options', 'Parental Leave'],
     rating: 4.4,
@@ -72,7 +102,7 @@ export const companies = [
     founded: 2006,
     website: 'https://spotify.com',
     description: 'A digital music streaming service giving you access to millions of songs, podcasts, and videos.',
-    location: 'Stockholm, Sweden',
+    location: 'Chennai, Tamil Nadu',
     culture: ['Innovation', 'Collaboration', 'Passion'],
     benefits: ['Premium Account', 'Health Insurance', 'Flexible Hours', 'Education Budget', 'Remote Work'],
     rating: 4.2,
@@ -87,7 +117,7 @@ export const companies = [
     founded: 1997,
     website: 'https://netflix.com',
     description: 'A streaming service offering a wide variety of award-winning TV shows, movies, anime, and more.',
-    location: 'Los Gatos, CA',
+    location: 'Mumbai, Maharashtra',
     culture: ['Freedom & Responsibility', 'High Performance', 'Innovation'],
     benefits: ['Unlimited PTO', 'Top of Market Pay', 'Stock Options', 'Health Insurance', 'Relocation'],
     rating: 4.1,
@@ -102,7 +132,7 @@ export const companies = [
     founded: 2006,
     website: 'https://shopify.com',
     description: 'A leading global commerce company providing tools to start, grow, market, and manage a retail business.',
-    location: 'Ottawa, Canada',
+    location: 'Pune, Maharashtra',
     culture: ['Entrepreneurship', 'Impact', 'Trust'],
     benefits: ['Health Insurance', 'Stock Options', 'Remote Work', 'Learning Budget', 'Home Office Budget'],
     rating: 4.3,
@@ -117,7 +147,7 @@ export const companies = [
     founded: 2012,
     website: 'https://figma.com',
     description: 'A collaborative interface design tool that allows teams to design, prototype, and gather feedback.',
-    location: 'San Francisco, CA',
+    location: 'Bengaluru, Karnataka',
     culture: ['Design Thinking', 'Collaboration', 'Craft'],
     benefits: ['Health Insurance', 'Equity', 'Remote Work', 'Learning Budget', 'Mental Health Support'],
     rating: 4.7,
@@ -144,9 +174,9 @@ export const jobs = [
     category: 'engineering',
     type: 'Full-time',
     level: 'Senior',
-    location: 'Mountain View, CA',
+    location: 'Bengaluru, Karnataka',
     remote: 'Hybrid',
-    salary: { min: 180000, max: 250000, currency: 'USD' },
+    salary: { min: 2500000, max: 4500000, currency: 'INR' },
     description: `We're looking for a Senior Frontend Engineer to join our Search team. You'll be responsible for building the next generation of search experiences that reach billions of users worldwide.
 
 You will work closely with product managers, designers, and backend engineers to deliver high-quality, performant web applications. The ideal candidate has deep expertise in modern JavaScript frameworks and a passion for creating exceptional user experiences.`,
@@ -179,9 +209,9 @@ You will work closely with product managers, designers, and backend engineers to
     category: 'design',
     type: 'Full-time',
     level: 'Mid',
-    location: 'San Francisco, CA',
+    location: 'Mumbai, Maharashtra',
     remote: 'Remote',
-    salary: { min: 140000, max: 190000, currency: 'USD' },
+    salary: { min: 1800000, max: 3000000, currency: 'INR' },
     description: `Join Stripe's design team to create beautiful, intuitive payment experiences. You'll be designing products that millions of businesses use every day to accept payments and manage their finances.
 
 We value designers who can think strategically and execute with precision. You'll have the opportunity to work on complex problems with real-world impact.`,
@@ -214,9 +244,9 @@ We value designers who can think strategically and execute with precision. You'l
     category: 'data-science',
     type: 'Full-time',
     level: 'Senior',
-    location: 'Redmond, WA',
+    location: 'Hyderabad, Telangana',
     remote: 'Hybrid',
-    salary: { min: 190000, max: 280000, currency: 'USD' },
+    salary: { min: 3000000, max: 5000000, currency: 'INR' },
     description: `Join Microsoft's AI & Research division to build cutting-edge machine learning models. You'll work on large language models and AI systems that power products used by millions.
 
 This is an opportunity to push the boundaries of what's possible with AI and make a significant impact on the future of technology.`,
@@ -249,9 +279,9 @@ This is an opportunity to push the boundaries of what's possible with AI and mak
     category: 'marketing',
     type: 'Full-time',
     level: 'Mid',
-    location: 'San Francisco, CA',
+    location: 'Gurugram, Haryana',
     remote: 'Remote',
-    salary: { min: 120000, max: 170000, currency: 'USD' },
+    salary: { min: 1500000, max: 2500000, currency: 'INR' },
     description: `We're seeking a Growth Marketing Manager to drive user acquisition and engagement for Airbnb. You'll develop and execute data-driven marketing strategies to grow our global community.
 
 The ideal candidate combines creativity with analytical rigor to optimize campaigns across multiple channels.`,
@@ -284,9 +314,9 @@ The ideal candidate combines creativity with analytical rigor to optimize campai
     category: 'engineering',
     type: 'Full-time',
     level: 'Mid',
-    location: 'Stockholm, Sweden',
+    location: 'Chennai, Tamil Nadu',
     remote: 'Hybrid',
-    salary: { min: 90000, max: 140000, currency: 'EUR' },
+    salary: { min: 1200000, max: 2200000, currency: 'INR' },
     description: `Join Spotify's backend engineering team to build the infrastructure that powers music streaming for over 500 million users. You'll work on microservices, data pipelines, and real-time systems.
 
 We're looking for engineers who are passionate about building scalable, reliable systems and are excited about the intersection of technology and music.`,
@@ -319,9 +349,9 @@ We're looking for engineers who are passionate about building scalable, reliable
     category: 'data-science',
     type: 'Full-time',
     level: 'Senior',
-    location: 'Los Gatos, CA',
+    location: 'Mumbai, Maharashtra',
     remote: 'On-site',
-    salary: { min: 170000, max: 240000, currency: 'USD' },
+    salary: { min: 2800000, max: 4000000, currency: 'INR' },
     description: `Netflix is looking for a Data Scientist to join our Content Analytics team. You'll analyze viewing patterns, predict content performance, and provide insights that drive billions of dollars in content investment decisions.
 
 You'll work alongside some of the brightest minds in data science and have access to one of the most unique datasets in the world.`,
@@ -354,9 +384,9 @@ You'll work alongside some of the brightest minds in data science and have acces
     category: 'devops',
     type: 'Full-time',
     level: 'Senior',
-    location: 'Ottawa, Canada',
+    location: 'Pune, Maharashtra',
     remote: 'Remote',
-    salary: { min: 150000, max: 210000, currency: 'CAD' },
+    salary: { min: 2200000, max: 3500000, currency: 'INR' },
     description: `Shopify is seeking a Senior DevOps Engineer to help us scale our infrastructure. You'll be responsible for building and maintaining the platform that powers over 4 million stores worldwide.
 
 Join a team that values automation, reliability, and developer experience. You'll have a direct impact on how we ship software to millions of merchants.`,
@@ -389,9 +419,9 @@ Join a team that values automation, reliability, and developer experience. You'l
     category: 'product',
     type: 'Full-time',
     level: 'Senior',
-    location: 'San Francisco, CA',
+    location: 'Bengaluru, Karnataka',
     remote: 'Hybrid',
-    salary: { min: 160000, max: 220000, currency: 'USD' },
+    salary: { min: 2500000, max: 3800000, currency: 'INR' },
     description: `Figma is looking for a Product Manager to lead our collaboration features. You'll define the product vision and strategy for how millions of designers and developers work together.
 
 This is an exciting opportunity to shape the future of design collaboration and make an impact on the creative industry.`,
@@ -424,9 +454,9 @@ This is an exciting opportunity to shape the future of design collaboration and 
     category: 'sales',
     type: 'Full-time',
     level: 'Senior',
-    location: 'New York, NY',
+    location: 'New Delhi, Delhi',
     remote: 'Hybrid',
-    salary: { min: 150000, max: 220000, currency: 'USD' },
+    salary: { min: 2000000, max: 3500000, currency: 'INR' },
     description: `Join Google Cloud's Enterprise Sales team to drive adoption of cloud solutions among Fortune 500 companies. You'll manage strategic accounts and build long-term relationships with C-level executives.`,
     requirements: [
       '7+ years of enterprise sales experience',
@@ -456,9 +486,9 @@ This is an exciting opportunity to shape the future of design collaboration and 
     category: 'management',
     type: 'Full-time',
     level: 'Lead',
-    location: 'San Francisco, CA',
+    location: 'Mumbai, Maharashtra',
     remote: 'Hybrid',
-    salary: { min: 220000, max: 320000, currency: 'USD' },
+    salary: { min: 3500000, max: 5500000, currency: 'INR' },
     description: `Lead a team of world-class engineers building Stripe's core payments infrastructure. You'll manage a team of 8-12 engineers and drive technical strategy for payment processing that handles billions of dollars.`,
     requirements: [
       '8+ years of software engineering experience',
@@ -488,9 +518,9 @@ This is an exciting opportunity to shape the future of design collaboration and 
     category: 'engineering',
     type: 'Full-time',
     level: 'Mid',
-    location: 'Los Gatos, CA',
+    location: 'Noida, Uttar Pradesh',
     remote: 'Hybrid',
-    salary: { min: 150000, max: 220000, currency: 'USD' },
+    salary: { min: 2000000, max: 3200000, currency: 'INR' },
     description: `Build the Netflix experience on Smart TVs and streaming devices. You'll develop performant, beautiful UI that works across hundreds of different devices.`,
     requirements: [
       '3+ years of frontend development experience',
@@ -520,9 +550,9 @@ This is an exciting opportunity to shape the future of design collaboration and 
     category: 'design',
     type: 'Full-time',
     level: 'Mid',
-    location: 'San Francisco, CA',
+    location: 'Gurugram, Haryana',
     remote: 'Remote',
-    salary: { min: 130000, max: 175000, currency: 'USD' },
+    salary: { min: 1600000, max: 2800000, currency: 'INR' },
     description: `Help us understand what makes great travel experiences by conducting research that shapes Airbnb's products. You'll lead studies, analyze data, and present insights that impact millions of users.`,
     requirements: [
       '3+ years of UX research experience',
@@ -574,6 +604,47 @@ export function getFeaturedJobs() {
   return jobs.filter(j => j.featured);
 }
 
+export function addJob(formData) {
+  const id = formData.title.toLowerCase().replace(/\s+/g, '-') + '-' + Date.now();
+  const today = new Date().toISOString().split('T')[0];
+  const deadline = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+
+  const newJob = {
+    id,
+    title: formData.title,
+    company: formData.company.toLowerCase().replace(/\s+/g, '-'),
+    category: formData.category,
+    type: formData.type,
+    level: formData.level,
+    location: formData.location,
+    remote: formData.remote,
+    salary: {
+      min: parseInt(formData.salaryMin, 10) || 0,
+      max: parseInt(formData.salaryMax, 10) || 0,
+      currency: 'INR',
+    },
+    description: formData.description,
+    requirements: formData.requirements.split('\n').filter(r => r.trim()),
+    responsibilities: formData.responsibilities.split('\n').filter(r => r.trim()),
+    skills: formData.skills.split(',').map(s => s.trim()).filter(Boolean),
+    benefits: formData.benefits.split(',').map(b => b.trim()).filter(Boolean),
+    postedDate: today,
+    deadline,
+    applicants: 0,
+    featured: false,
+    userPosted: true,
+    companyMeta: {
+      name: formData.company,
+      website: formData.companyWebsite,
+      description: formData.companyDescription,
+      contactEmail: formData.contactEmail,
+    },
+  };
+
+  jobs.unshift(newJob);
+  return newJob;
+}
+
 export function searchJobs({ query, category, type, level, remote, location, sortBy = 'newest', minSalary }) {
   let results = [...jobs];
 
@@ -604,7 +675,11 @@ export function searchJobs({ query, category, type, level, remote, location, sor
 
   if (location) {
     const loc = location.toLowerCase();
-    results = results.filter(j => j.location.toLowerCase().includes(loc));
+    results = results.filter(j => {
+      const jobLoc = j.location.toLowerCase();
+      // Match city name or state name
+      return jobLoc.includes(loc);
+    });
   }
 
   if (minSalary) {
@@ -634,7 +709,8 @@ export function searchJobs({ query, category, type, level, remote, location, sor
 }
 
 export function formatSalary(salary) {
-  const formatter = new Intl.NumberFormat('en-US', {
+  const locale = salary.currency === 'INR' ? 'en-IN' : 'en-US';
+  const formatter = new Intl.NumberFormat(locale, {
     style: 'currency',
     currency: salary.currency,
     maximumFractionDigits: 0,

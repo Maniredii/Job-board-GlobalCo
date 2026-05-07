@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { jobs, companies } from '@/lib/data';
+import { jobs, companies, indianCities } from '@/lib/data';
 import styles from './SearchBar.module.css';
 
 export default function SearchBar({ variant = 'hero' }) {
@@ -11,12 +11,18 @@ export default function SearchBar({ variant = 'hero' }) {
   const [location, setLocation] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [locSuggestions, setLocSuggestions] = useState([]);
+  const [showLocSuggestions, setShowLocSuggestions] = useState(false);
   const wrapperRef = useRef(null);
+  const locWrapperRef = useRef(null);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
         setShowSuggestions(false);
+      }
+      if (locWrapperRef.current && !locWrapperRef.current.contains(event.target)) {
+        setShowLocSuggestions(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -40,9 +46,30 @@ export default function SearchBar({ variant = 'hero' }) {
     }
   };
 
+  const handleLocationChange = (e) => {
+    const val = e.target.value;
+    setLocation(val);
+
+    if (val.trim().length > 0) {
+      const q = val.toLowerCase();
+      const matches = indianCities.filter(c =>
+        c.city.toLowerCase().includes(q) || c.state.toLowerCase().includes(q)
+      ).slice(0, 5);
+      setLocSuggestions(matches);
+      setShowLocSuggestions(matches.length > 0);
+    } else {
+      setShowLocSuggestions(false);
+    }
+  };
+
   const handleSuggestionClick = (suggestion) => {
     setQuery(suggestion);
     setShowSuggestions(false);
+  };
+
+  const handleLocSuggestionClick = (city, state) => {
+    setLocation(`${city}, ${state}`);
+    setShowLocSuggestions(false);
   };
 
   const handleSubmit = (e) => {
@@ -82,16 +109,31 @@ export default function SearchBar({ variant = 'hero' }) {
         )}
       </div>
       <div className={styles.divider} />
-      <div className={styles.inputWrapper}>
+      <div className={styles.inputWrapper} ref={locWrapperRef}>
         <svg className={styles.inputIcon} width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
         <input
           type="text"
-          placeholder="City, state, or remote..."
+          placeholder="City or state... e.g. Bengaluru, Maharashtra"
           value={location}
-          onChange={(e) => setLocation(e.target.value)}
+          onChange={handleLocationChange}
+          onFocus={() => locSuggestions.length > 0 && setShowLocSuggestions(true)}
           className={styles.input}
           id="search-location-input"
+          autoComplete="off"
         />
+        {showLocSuggestions && (
+          <ul className={styles.suggestionsList}>
+            {locSuggestions.map((item, index) => (
+              <li
+                key={index}
+                onClick={() => handleLocSuggestionClick(item.city, item.state)}
+                className={styles.suggestionItem}
+              >
+                📍 {item.city}, {item.state}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
       <button type="submit" className={styles.searchBtn} id="search-submit-btn">
         Search Jobs

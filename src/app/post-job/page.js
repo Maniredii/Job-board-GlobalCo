@@ -1,13 +1,18 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import { categories } from '@/lib/data';
+import { useRouter } from 'next/navigation';
+import { categories, indianCities, addJob } from '@/lib/data';
 import styles from './page.module.css';
 
 export default function PostJobPage() {
+  const router = useRouter();
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
+  const [locationQuery, setLocationQuery] = useState('');
+  const [showLocSuggestions, setShowLocSuggestions] = useState(false);
+  const locRef = useRef(null);
   const [formData, setFormData] = useState({
     title: '',
     company: '',
@@ -18,7 +23,6 @@ export default function PostJobPage() {
     remote: 'Hybrid',
     salaryMin: '',
     salaryMax: '',
-    currency: 'USD',
     description: '',
     requirements: '',
     responsibilities: '',
@@ -29,13 +33,45 @@ export default function PostJobPage() {
     contactEmail: '',
   });
 
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (locRef.current && !locRef.current.contains(e.target)) {
+        setShowLocSuggestions(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   const updateField = (field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
+  const handleLocationChange = (e) => {
+    const val = e.target.value;
+    setLocationQuery(val);
+    updateField('location', val);
+    setShowLocSuggestions(val.trim().length > 0);
+  };
+
+  const selectLocation = (city, state) => {
+    const loc = `${city}, ${state}`;
+    setLocationQuery(loc);
+    updateField('location', loc);
+    setShowLocSuggestions(false);
+  };
+
+  const filteredCities = locationQuery.trim().length > 0
+    ? indianCities.filter(c =>
+        c.city.toLowerCase().includes(locationQuery.toLowerCase()) ||
+        c.state.toLowerCase().includes(locationQuery.toLowerCase())
+      ).slice(0, 6)
+    : [];
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    setTimeout(() => setSubmitted(true), 600);
+    addJob(formData);
+    setSubmitted(true);
   };
 
   const totalSteps = 3;
@@ -47,17 +83,19 @@ export default function PostJobPage() {
           <div className={styles.successCard}>
             <span className={styles.successIcon}>🎉</span>
             <h1>Job Posted Successfully!</h1>
-            <p>Your job listing for <strong>{formData.title}</strong> has been submitted for review. It will be live within 24 hours.</p>
+            <p>Your job listing for <strong>{formData.title}</strong> is now live and visible on the jobs page.</p>
             <div className={styles.successActions}>
-              <button className="btn btn-primary btn-lg" onClick={() => { setSubmitted(false); setStep(1); setFormData({
+              <button className="btn btn-primary btn-lg" onClick={() => router.push('/jobs')}>
+                View All Jobs
+              </button>
+              <button className="btn btn-secondary btn-lg" onClick={() => { setSubmitted(false); setStep(1); setLocationQuery(''); setFormData({
                 title: '', company: '', category: '', type: 'Full-time', level: 'Mid',
-                location: '', remote: 'Hybrid', salaryMin: '', salaryMax: '', currency: 'USD',
+                location: '', remote: 'Hybrid', salaryMin: '', salaryMax: '',
                 description: '', requirements: '', responsibilities: '', skills: '', benefits: '',
                 companyDescription: '', companyWebsite: '', contactEmail: '',
               }); }}>
                 Post Another Job
               </button>
-              <Link href="/jobs" className="btn btn-secondary btn-lg">View All Jobs</Link>
             </div>
           </div>
         </div>
@@ -70,7 +108,7 @@ export default function PostJobPage() {
       <section className={styles.header}>
         <div className="container">
           <h1 className={styles.title}>Post a Job</h1>
-          <p className={styles.subtitle}>Reach thousands of qualified candidates. Fill out the form below to get started.</p>
+          <p className={styles.subtitle}>Reach thousands of qualified candidates across India. Fill out the form below to get started.</p>
         </div>
       </section>
 
@@ -146,19 +184,50 @@ export default function PostJobPage() {
                     </select>
                   </div>
 
-                  <div className="input-group" style={{ gridColumn: '1 / -1' }}>
-                    <label>Location *</label>
-                    <input type="text" className="input" placeholder="e.g. San Francisco, CA" required value={formData.location} onChange={(e) => updateField('location', e.target.value)} id="post-location" />
+                  <div className="input-group" style={{ gridColumn: '1 / -1', position: 'relative' }} ref={locRef}>
+                    <label>Location * (Indian cities only)</label>
+                    <input
+                      type="text"
+                      className="input"
+                      placeholder="Search city or state... e.g. Bengaluru, Mumbai"
+                      required
+                      value={locationQuery}
+                      onChange={handleLocationChange}
+                      onFocus={() => locationQuery.trim().length > 0 && setShowLocSuggestions(true)}
+                      id="post-location"
+                      autoComplete="off"
+                    />
+                    {showLocSuggestions && filteredCities.length > 0 && (
+                      <ul style={{
+                        position: 'absolute', top: '100%', left: 0, right: 0,
+                        background: 'var(--color-bg-card)', border: '1px solid var(--color-border)',
+                        borderRadius: '12px', listStyle: 'none', padding: '0.5rem 0', margin: 0,
+                        zIndex: 100, boxShadow: 'var(--shadow-lg)',
+                      }}>
+                        {filteredCities.map((c, i) => (
+                          <li key={i} onClick={() => selectLocation(c.city, c.state)}
+                            style={{
+                              padding: '0.6rem 1rem', cursor: 'pointer',
+                              transition: 'background 0.15s',
+                            }}
+                            onMouseEnter={(e) => e.target.style.background = 'var(--color-bg-secondary)'}
+                            onMouseLeave={(e) => e.target.style.background = 'transparent'}
+                          >
+                            📍 {c.city}, <span style={{ color: 'var(--color-text-secondary)' }}>{c.state}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                   </div>
 
                   <div className="input-group">
-                    <label>Min Salary *</label>
-                    <input type="number" className="input" placeholder="e.g. 120000" required value={formData.salaryMin} onChange={(e) => updateField('salaryMin', e.target.value)} id="post-salary-min" />
+                    <label>Min Salary (₹) *</label>
+                    <input type="number" className="input" placeholder="e.g. 1500000" required value={formData.salaryMin} onChange={(e) => updateField('salaryMin', e.target.value)} id="post-salary-min" />
                   </div>
 
                   <div className="input-group">
-                    <label>Max Salary *</label>
-                    <input type="number" className="input" placeholder="e.g. 180000" required value={formData.salaryMax} onChange={(e) => updateField('salaryMax', e.target.value)} id="post-salary-max" />
+                    <label>Max Salary (₹) *</label>
+                    <input type="number" className="input" placeholder="e.g. 3000000" required value={formData.salaryMax} onChange={(e) => updateField('salaryMax', e.target.value)} id="post-salary-max" />
                   </div>
                 </div>
 
@@ -185,12 +254,12 @@ export default function PostJobPage() {
 
                   <div className="input-group" style={{ gridColumn: '1 / -1' }}>
                     <label>Requirements * (one per line)</label>
-                    <textarea className="input" rows={5} placeholder="5+ years of React experience&#10;Strong TypeScript skills&#10;..." required value={formData.requirements} onChange={(e) => updateField('requirements', e.target.value)} id="post-requirements" style={{ resize: 'vertical' }} />
+                    <textarea className="input" rows={5} placeholder={"5+ years of React experience\nStrong TypeScript skills\n..."} required value={formData.requirements} onChange={(e) => updateField('requirements', e.target.value)} id="post-requirements" style={{ resize: 'vertical' }} />
                   </div>
 
                   <div className="input-group" style={{ gridColumn: '1 / -1' }}>
                     <label>Responsibilities * (one per line)</label>
-                    <textarea className="input" rows={5} placeholder="Lead frontend architecture decisions&#10;Mentor junior developers&#10;..." required value={formData.responsibilities} onChange={(e) => updateField('responsibilities', e.target.value)} id="post-responsibilities" style={{ resize: 'vertical' }} />
+                    <textarea className="input" rows={5} placeholder={"Lead frontend architecture decisions\nMentor junior developers\n..."} required value={formData.responsibilities} onChange={(e) => updateField('responsibilities', e.target.value)} id="post-responsibilities" style={{ resize: 'vertical' }} />
                   </div>
 
                   <div className="input-group" style={{ gridColumn: '1 / -1' }}>
@@ -200,7 +269,7 @@ export default function PostJobPage() {
 
                   <div className="input-group" style={{ gridColumn: '1 / -1' }}>
                     <label>Benefits & Perks (comma-separated)</label>
-                    <input type="text" className="input" placeholder="Health Insurance, 401(k), Remote Work, Equity..." value={formData.benefits} onChange={(e) => updateField('benefits', e.target.value)} id="post-benefits" />
+                    <input type="text" className="input" placeholder="Health Insurance, PF, Remote Work, ESOPs..." value={formData.benefits} onChange={(e) => updateField('benefits', e.target.value)} id="post-benefits" />
                   </div>
                 </div>
 
@@ -224,7 +293,7 @@ export default function PostJobPage() {
                 <div className={styles.formGrid}>
                   <div className="input-group" style={{ gridColumn: '1 / -1' }}>
                     <label>Company Name *</label>
-                    <input type="text" className="input" placeholder="e.g. Acme Corp" required value={formData.company} onChange={(e) => updateField('company', e.target.value)} id="post-company" />
+                    <input type="text" className="input" placeholder="e.g. Infosys, TCS, Startup Co" required value={formData.company} onChange={(e) => updateField('company', e.target.value)} id="post-company" />
                   </div>
 
                   <div className="input-group" style={{ gridColumn: '1 / -1' }}>
