@@ -96,7 +96,7 @@ export default function JobFilters({ currentFilters }) {
       <div className={styles.filterGroup}>
         <label className={styles.filterLabel}>Experience Level</label>
         <div className={styles.filterOptions}>
-          {['', 'Junior', 'Mid', 'Senior', 'Lead'].map((level) => (
+          {['', 'Intern', 'Entry Level', 'Junior', 'Mid', 'Senior', 'Lead'].map((level) => (
             <button
               key={level}
               onClick={() => updateFilter('level', level)}
@@ -167,6 +167,22 @@ export default function JobFilters({ currentFilters }) {
             ₹{(parseInt(currentFilters.minSalary || 500000) / 100000).toFixed(1)}L+
           </div>
         </div>
+      </div>
+
+      {/* Year of Passout */}
+      <div className={styles.filterGroup}>
+        <label className={styles.filterLabel}>Year of Passout</label>
+        <select
+          className="input"
+          value={currentFilters.passoutYear || ''}
+          onChange={(e) => updateFilter('passoutYear', e.target.value)}
+          id="filter-passout-year"
+        >
+          <option value="">All Years</option>
+          {['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018'].map(year => (
+            <option key={year} value={year}>{year}</option>
+          ))}
+        </select>
       </div>
 
       {/* Sort */}

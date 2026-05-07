@@ -197,6 +197,7 @@ You will work closely with product managers, designers, and backend engineers to
     ],
     skills: ['React', 'TypeScript', 'CSS', 'Node.js', 'GraphQL', 'Performance'],
     benefits: ['Health Insurance', '401(k) Match', 'Stock Options', 'Free Meals', 'Gym'],
+    passoutYear: '2020',
     postedDate: '2025-05-01',
     deadline: '2025-06-01',
     applicants: 234,
@@ -232,6 +233,7 @@ We value designers who can think strategically and execute with precision. You'l
     ],
     skills: ['Figma', 'UI/UX', 'Design Systems', 'Prototyping', 'User Research'],
     benefits: ['Health Insurance', 'Equity', 'Remote Work', 'Learning Budget'],
+    passoutYear: '2022',
     postedDate: '2025-04-28',
     deadline: '2025-05-28',
     applicants: 187,
@@ -267,6 +269,7 @@ This is an opportunity to push the boundaries of what's possible with AI and mak
     ],
     skills: ['Python', 'PyTorch', 'TensorFlow', 'NLP', 'Computer Vision', 'MLOps'],
     benefits: ['Health Insurance', '401(k)', 'Stock Options', 'Education Budget'],
+    passoutYear: '2021',
     postedDate: '2025-05-02',
     deadline: '2025-06-15',
     applicants: 312,
@@ -302,6 +305,7 @@ The ideal candidate combines creativity with analytical rigor to optimize campai
     ],
     skills: ['Growth Marketing', 'Analytics', 'SEO', 'Paid Ads', 'A/B Testing'],
     benefits: ['Travel Credits', 'Health Insurance', 'Remote Work', 'Stock Options'],
+    passoutYear: '2022',
     postedDate: '2025-04-25',
     deadline: '2025-05-25',
     applicants: 156,
@@ -313,7 +317,7 @@ The ideal candidate combines creativity with analytical rigor to optimize campai
     company: 'spotify',
     category: 'engineering',
     type: 'Full-time',
-    level: 'Mid',
+    level: 'Entry Level',
     location: 'Chennai, Tamil Nadu',
     remote: 'Hybrid',
     salary: { min: 1200000, max: 2200000, currency: 'INR' },
@@ -337,6 +341,7 @@ We're looking for engineers who are passionate about building scalable, reliable
     ],
     skills: ['Java', 'Python', 'Microservices', 'GCP', 'Kafka', 'Docker'],
     benefits: ['Premium Account', 'Health Insurance', 'Flexible Hours', 'Education Budget'],
+    passoutYear: '2024',
     postedDate: '2025-04-30',
     deadline: '2025-05-30',
     applicants: 98,
@@ -372,6 +377,7 @@ You'll work alongside some of the brightest minds in data science and have acces
     ],
     skills: ['Python', 'SQL', 'Statistics', 'Machine Learning', 'Causal Inference', 'Tableau'],
     benefits: ['Unlimited PTO', 'Top of Market Pay', 'Stock Options', 'Health Insurance'],
+    passoutYear: '2020',
     postedDate: '2025-05-03',
     deadline: '2025-06-03',
     applicants: 267,
@@ -407,6 +413,7 @@ Join a team that values automation, reliability, and developer experience. You'l
     ],
     skills: ['Kubernetes', 'Docker', 'Terraform', 'AWS', 'CI/CD', 'Linux'],
     benefits: ['Health Insurance', 'Stock Options', 'Remote Work', 'Home Office Budget'],
+    passoutYear: '2019',
     postedDate: '2025-04-27',
     deadline: '2025-05-27',
     applicants: 143,
@@ -442,6 +449,7 @@ This is an exciting opportunity to shape the future of design collaboration and 
     ],
     skills: ['Product Strategy', 'Data Analysis', 'User Research', 'Agile', 'Technical'],
     benefits: ['Health Insurance', 'Equity', 'Remote Work', 'Learning Budget'],
+    passoutYear: '2020',
     postedDate: '2025-05-04',
     deadline: '2025-06-04',
     applicants: 189,
@@ -474,6 +482,7 @@ This is an exciting opportunity to shape the future of design collaboration and 
     ],
     skills: ['Enterprise Sales', 'Cloud', 'Negotiation', 'Account Management', 'CRM'],
     benefits: ['Commission', 'Health Insurance', '401(k)', 'Stock Options'],
+    passoutYear: '2019',
     postedDate: '2025-04-29',
     deadline: '2025-05-29',
     applicants: 112,
@@ -484,7 +493,7 @@ This is an exciting opportunity to shape the future of design collaboration and 
     title: 'Engineering Manager - Payments',
     company: 'stripe',
     category: 'management',
-    type: 'Full-time',
+    type: 'Contract',
     level: 'Lead',
     location: 'Mumbai, Maharashtra',
     remote: 'Hybrid',
@@ -506,6 +515,7 @@ This is an exciting opportunity to shape the future of design collaboration and 
     ],
     skills: ['Engineering Management', 'Payments', 'System Design', 'Leadership', 'Distributed Systems'],
     benefits: ['Health Insurance', 'Equity', 'Parental Leave', 'Learning Budget'],
+    passoutYear: '2018',
     postedDate: '2025-05-01',
     deadline: '2025-06-01',
     applicants: 87,
@@ -516,11 +526,11 @@ This is an exciting opportunity to shape the future of design collaboration and 
     title: 'Frontend Engineer - TV UI',
     company: 'netflix',
     category: 'engineering',
-    type: 'Full-time',
-    level: 'Mid',
+    type: 'Internship',
+    level: 'Intern',
     location: 'Noida, Uttar Pradesh',
     remote: 'Hybrid',
-    salary: { min: 2000000, max: 3200000, currency: 'INR' },
+    salary: { min: 600000, max: 1200000, currency: 'INR' },
     description: `Build the Netflix experience on Smart TVs and streaming devices. You'll develop performant, beautiful UI that works across hundreds of different devices.`,
     requirements: [
       '3+ years of frontend development experience',
@@ -538,6 +548,7 @@ This is an exciting opportunity to shape the future of design collaboration and 
     ],
     skills: ['React', 'JavaScript', 'Performance', 'TV Platforms', 'CSS'],
     benefits: ['Unlimited PTO', 'Top of Market Pay', 'Health Insurance'],
+    passoutYear: '2025',
     postedDate: '2025-05-02',
     deadline: '2025-06-02',
     applicants: 203,
@@ -570,6 +581,7 @@ This is an exciting opportunity to shape the future of design collaboration and 
     ],
     skills: ['User Research', 'Usability Testing', 'Survey Design', 'Data Analysis', 'Presentation'],
     benefits: ['Travel Credits', 'Health Insurance', 'Remote Work'],
+    passoutYear: '2023',
     postedDate: '2025-04-26',
     deadline: '2025-05-26',
     applicants: 134,
@@ -632,6 +644,7 @@ export function addJob(formData) {
     deadline,
     applicants: 0,
     featured: false,
+    passoutYear: formData.passoutYear || '',
     userPosted: true,
     companyMeta: {
       name: formData.company,
@@ -645,7 +658,7 @@ export function addJob(formData) {
   return newJob;
 }
 
-export function searchJobs({ query, category, type, level, remote, location, sortBy = 'newest', minSalary }) {
+export function searchJobs({ query, category, type, level, remote, location, sortBy = 'newest', minSalary, passoutYear }) {
   let results = [...jobs];
 
   if (query) {
@@ -685,6 +698,10 @@ export function searchJobs({ query, category, type, level, remote, location, sor
   if (minSalary) {
     const minSal = parseInt(minSalary, 10);
     results = results.filter(j => j.salary.max >= minSal || j.salary.min >= minSal);
+  }
+
+  if (passoutYear) {
+    results = results.filter(j => j.passoutYear === passoutYear);
   }
 
   // Sorting

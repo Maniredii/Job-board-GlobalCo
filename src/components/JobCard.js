@@ -69,6 +69,9 @@ export default function JobCard({ job, featured = false }) {
             {job.remote}
           </span>
           <span className="badge badge-primary">{job.level}</span>
+          {job.passoutYear && (
+            <span className="badge badge-secondary">🎓 {job.passoutYear}</span>
+          )}
           {job.skills.slice(0, 3).map((skill) => (
             <span key={skill} className="tag">{skill}</span>
           ))}

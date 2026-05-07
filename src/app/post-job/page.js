@@ -23,6 +23,7 @@ export default function PostJobPage() {
     remote: 'Hybrid',
     salaryMin: '',
     salaryMax: '',
+    passoutYear: '',
     description: '',
     requirements: '',
     responsibilities: '',
@@ -90,7 +91,7 @@ export default function PostJobPage() {
               </button>
               <button className="btn btn-secondary btn-lg" onClick={() => { setSubmitted(false); setStep(1); setLocationQuery(''); setFormData({
                 title: '', company: '', category: '', type: 'Full-time', level: 'Mid',
-                location: '', remote: 'Hybrid', salaryMin: '', salaryMax: '',
+                location: '', remote: 'Hybrid', salaryMin: '', salaryMax: '', passoutYear: '',
                 description: '', requirements: '', responsibilities: '', skills: '', benefits: '',
                 companyDescription: '', companyWebsite: '', contactEmail: '',
               }); }}>
@@ -168,6 +169,8 @@ export default function PostJobPage() {
                   <div className="input-group">
                     <label>Experience Level *</label>
                     <select className="input" value={formData.level} onChange={(e) => updateField('level', e.target.value)} id="post-level">
+                      <option value="Intern">Intern</option>
+                      <option value="Entry Level">Entry Level</option>
                       <option value="Junior">Junior</option>
                       <option value="Mid">Mid-Level</option>
                       <option value="Senior">Senior</option>
@@ -228,6 +231,16 @@ export default function PostJobPage() {
                   <div className="input-group">
                     <label>Max Salary (₹) *</label>
                     <input type="number" className="input" placeholder="e.g. 3000000" required value={formData.salaryMax} onChange={(e) => updateField('salaryMax', e.target.value)} id="post-salary-max" />
+                  </div>
+
+                  <div className="input-group">
+                    <label>Year of Passout</label>
+                    <select className="input" value={formData.passoutYear} onChange={(e) => updateField('passoutYear', e.target.value)} id="post-passout-year">
+                      <option value="">Select year</option>
+                      {['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018'].map(y => (
+                        <option key={y} value={y}>{y}</option>
+                      ))}
+                    </select>
                   </div>
                 </div>
 
