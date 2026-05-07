@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { companies, getJobsByCompany } from '@/lib/data';
 import styles from './page.module.css';
 
@@ -32,7 +33,7 @@ export default function CompaniesPage() {
                   id={`company-${company.id}`}
                 >
                   <div className={styles.cardTop}>
-                    <span className={styles.logo}>{company.logo}</span>
+                    <span className={styles.logo}><Image src={company.logo} alt={company.name} width={40} height={40} /></span>
                     <div className={styles.cardInfo}>
                       <h2 className={styles.companyName}>{company.name}</h2>
                       <span className={styles.industry}>{company.industry}</span>

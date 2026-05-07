@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useCallback, useSyncExternalStore, useEffect } from 'react';
 
 const ThemeContext = createContext({
   theme: 'light',
@@ -11,28 +11,38 @@ export function useTheme() {
   return useContext(ThemeContext);
 }
 
+const emptySubscribe = () => () => {};
+
 export function ThemeProvider({ children }) {
+  const mounted = useSyncExternalStore(emptySubscribe, () => true, () => false);
+
   const [theme, setTheme] = useState('light');
-  const [mounted, setMounted] = useState(false);
+  const [hydrated, setHydrated] = useState(false);
+
+  // Read from localStorage only once after mount — using a "did hydrate" ref pattern
+  if (mounted && !hydrated) {
+    const saved = localStorage.getItem('jobsphere-theme');
+    const resolved = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    if (resolved !== theme) {
+      setTheme(resolved);
+    }
+    setHydrated(true);
+  }
 
   useEffect(() => {
-    setMounted(true);
-    const saved = localStorage.getItem('jobsphere-theme');
-    if (saved) {
-      setTheme(saved);
-      document.documentElement.setAttribute('data-theme', saved);
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      setTheme('dark');
-      document.documentElement.setAttribute('data-theme', 'dark');
+    if (mounted) {
+      document.documentElement.setAttribute('data-theme', theme);
     }
-  }, []);
+  }, [theme, mounted]);
 
-  const toggleTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
-    setTheme(newTheme);
-    localStorage.setItem('jobsphere-theme', newTheme);
-    document.documentElement.setAttribute('data-theme', newTheme);
-  };
+  const toggleTheme = useCallback(() => {
+    setTheme(prev => {
+      const newTheme = prev === 'light' ? 'dark' : 'light';
+      localStorage.setItem('jobsphere-theme', newTheme);
+      document.documentElement.setAttribute('data-theme', newTheme);
+      return newTheme;
+    });
+  }, []);
 
   if (!mounted) {
     return <>{children}</>;

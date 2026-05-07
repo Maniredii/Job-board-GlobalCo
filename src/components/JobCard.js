@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { getCompany, formatSalary, timeAgo } from '@/lib/data';
 import { useTheme } from '@/components/ThemeProvider';
@@ -39,7 +40,7 @@ export default function JobCard({ job, featured = false }) {
         {featured && <div className={styles.featuredBadge}>⭐ Featured</div>}
 
         <div className={styles.header}>
-          <div className={styles.companyLogo}>{company?.logo}</div>
+          <div className={styles.companyLogo}><Image src={company?.logo || ''} alt={company?.name || ''} width={32} height={32} /></div>
           <div className={styles.headerInfo}>
             <span className={styles.companyName}>{company?.name}</span>
             <span className={styles.posted}>{timeAgo(job.postedDate)}</span>

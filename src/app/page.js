@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { getFeaturedJobs, categories, getStats, companies } from '@/lib/data';
 import JobCard from '@/components/JobCard';
 import SearchBar from '@/components/SearchBar';
@@ -168,7 +169,7 @@ export default function Home() {
                   className={styles.companyCard}
                   id={`company-card-${company.id}`}
                 >
-                  <span className={styles.companyLogo}>{company.logo}</span>
+                  <span className={styles.companyLogo}><Image src={company.logo} alt={company.name} width={40} height={40} /></span>
                   <h3 className={styles.companyName}>{company.name}</h3>
                   <p className={styles.companyIndustry}>{company.industry}</p>
                   <div className={styles.companyMeta}>

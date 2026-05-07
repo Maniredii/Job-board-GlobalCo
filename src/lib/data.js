@@ -6,7 +6,7 @@ export const companies = [
   {
     id: 'google',
     name: 'Google',
-    logo: '🔍',
+    logo: '/logos/google.svg',
     industry: 'Technology',
     size: '10,000+',
     founded: 1998,
@@ -21,7 +21,7 @@ export const companies = [
   {
     id: 'microsoft',
     name: 'Microsoft',
-    logo: '🪟',
+    logo: '/logos/microsoft.svg',
     industry: 'Technology',
     size: '10,000+',
     founded: 1975,
@@ -36,7 +36,7 @@ export const companies = [
   {
     id: 'stripe',
     name: 'Stripe',
-    logo: '💳',
+    logo: '/logos/stripe.svg',
     industry: 'Fintech',
     size: '5,000-10,000',
     founded: 2010,
@@ -51,7 +51,7 @@ export const companies = [
   {
     id: 'airbnb',
     name: 'Airbnb',
-    logo: '🏠',
+    logo: '/logos/airbnb.svg',
     industry: 'Travel & Hospitality',
     size: '5,000-10,000',
     founded: 2008,
@@ -66,7 +66,7 @@ export const companies = [
   {
     id: 'spotify',
     name: 'Spotify',
-    logo: '🎵',
+    logo: '/logos/spotify.svg',
     industry: 'Entertainment',
     size: '5,000-10,000',
     founded: 2006,
@@ -81,7 +81,7 @@ export const companies = [
   {
     id: 'netflix',
     name: 'Netflix',
-    logo: '🎬',
+    logo: '/logos/netflix.svg',
     industry: 'Entertainment',
     size: '10,000+',
     founded: 1997,
@@ -96,7 +96,7 @@ export const companies = [
   {
     id: 'shopify',
     name: 'Shopify',
-    logo: '🛍️',
+    logo: '/logos/shopify.svg',
     industry: 'E-Commerce',
     size: '5,000-10,000',
     founded: 2006,
@@ -111,7 +111,7 @@ export const companies = [
   {
     id: 'figma',
     name: 'Figma',
-    logo: '🎨',
+    logo: '/logos/figma.svg',
     industry: 'Design Tools',
     size: '1,000-5,000',
     founded: 2012,

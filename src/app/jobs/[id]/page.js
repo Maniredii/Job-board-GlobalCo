@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { getJobWithCompany, jobs, formatSalary, timeAgo, getJobsByCompany, getJobsByCategory, getCompany } from '@/lib/data';
 import ApplyButton from '@/components/ApplyButton';
 import BookmarkButton from '@/components/BookmarkButton';
@@ -58,7 +59,7 @@ export default async function JobDetailPage({ params }) {
             {/* Job Header */}
             <div className={styles.jobHeader}>
               <div className={styles.headerTop}>
-                <div className={styles.companyLogo}>{company?.logo}</div>
+                <div className={styles.companyLogo}><Image src={company?.logo} alt={company?.name || ''} width={48} height={48} /></div>
                 <div className={styles.headerInfo}>
                   <Link href={`/companies/${company?.id}`} className={styles.companyLink}>
                     {company?.name}
@@ -155,7 +156,7 @@ export default async function JobDetailPage({ params }) {
             <div className={styles.sideCard}>
               <h3 className={styles.sideCardTitle}>About the Company</h3>
               <Link href={`/companies/${company?.id}`} className={styles.companyCardLink}>
-                <div className={styles.companyCardLogo}>{company?.logo}</div>
+                <div className={styles.companyCardLogo}><Image src={company?.logo} alt={company?.name || ''} width={40} height={40} /></div>
                 <span className={styles.companyCardName}>{company?.name}</span>
               </Link>
               <p className={styles.companyCardDesc}>{company?.description}</p>

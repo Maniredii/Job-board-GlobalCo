@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { categories } from '@/lib/data';
 import styles from './page.module.css';
 
@@ -56,7 +57,7 @@ export default function PostJobPage() {
               }); }}>
                 Post Another Job
               </button>
-              <a href="/jobs" className="btn btn-secondary btn-lg">View All Jobs</a>
+              <Link href="/jobs" className="btn btn-secondary btn-lg">View All Jobs</Link>
             </div>
           </div>
         </div>

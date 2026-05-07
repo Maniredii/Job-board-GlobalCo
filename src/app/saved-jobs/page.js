@@ -1,21 +1,22 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useSyncExternalStore } from 'react';
 import Link from 'next/link';
 import { jobs } from '@/lib/data';
 import JobCard from '@/components/JobCard';
 import styles from './page.module.css';
 
-export default function SavedJobsPage() {
-  const [savedJobs, setSavedJobs] = useState([]);
-  const [mounted, setMounted] = useState(false);
+const emptySubscribe = () => () => {};
 
-  useEffect(() => {
-    setMounted(true);
-    const savedIds = JSON.parse(localStorage.getItem('jobsphere-bookmarks') || '[]');
-    const filtered = jobs.filter(job => savedIds.includes(job.id));
-    setSavedJobs(filtered);
-  }, []);
+export default function SavedJobsPage() {
+  const mounted = useSyncExternalStore(emptySubscribe, () => true, () => false);
+
+  const savedJobs = mounted
+    ? jobs.filter(job => {
+        const savedIds = JSON.parse(localStorage.getItem('jobsphere-bookmarks') || '[]');
+        return savedIds.includes(job.id);
+      })
+    : [];
 
   if (!mounted) return null;
 

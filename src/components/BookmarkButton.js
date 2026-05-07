@@ -1,15 +1,22 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useSyncExternalStore } from 'react';
 import styles from './BookmarkButton.module.css';
 
-export default function BookmarkButton({ jobId }) {
-  const [bookmarked, setBookmarked] = useState(false);
+const emptySubscribe = () => () => {};
 
-  useEffect(() => {
+export default function BookmarkButton({ jobId }) {
+  const mounted = useSyncExternalStore(emptySubscribe, () => true, () => false);
+
+  const [bookmarked, setBookmarked] = useState(false);
+  const [lastJobId, setLastJobId] = useState(null);
+
+  // Sync bookmark state from localStorage during render (not in an effect)
+  if (mounted && lastJobId !== jobId) {
     const saved = JSON.parse(localStorage.getItem('jobsphere-bookmarks') || '[]');
     setBookmarked(saved.includes(jobId));
-  }, [jobId]);
+    setLastJobId(jobId);
+  }
 
   const toggleBookmark = () => {
     const saved = JSON.parse(localStorage.getItem('jobsphere-bookmarks') || '[]');

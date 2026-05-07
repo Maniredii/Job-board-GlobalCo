@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { companies, getCompany, getJobsByCompany } from '@/lib/data';
 import JobCard from '@/components/JobCard';
 import styles from './page.module.css';
@@ -48,7 +49,7 @@ export default async function CompanyDetailPage({ params }) {
           </nav>
 
           <div className={styles.headerContent}>
-            <span className={styles.logo}>{company.logo}</span>
+            <span className={styles.logo}><Image src={company.logo} alt={company.name} width={56} height={56} /></span>
             <div className={styles.headerInfo}>
               <h1 className={styles.companyName}>{company.name}</h1>
               <p className={styles.companyTagline}>{company.industry} · Founded {company.founded} · {company.location}</p>
