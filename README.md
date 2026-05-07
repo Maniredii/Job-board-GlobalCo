@@ -22,15 +22,19 @@
 |---------|-------------|
 | 🏠 **Landing Page** | Animated hero with gradient effects, floating glows, and grid background |
 | 🔍 **Advanced Job Search** | Real-time search with keyword, location, and multi-filter support |
-| 🏷️ **Smart Filtering** | Filter by category, job type, experience level, work mode, and sort options |
+| 🏷️ **Smart Filtering** | Filter by category, job type, experience level, work mode, salary range slider, and sort options |
 | 📋 **Job Detail Pages** | Comprehensive job pages with requirements, responsibilities, skills, and benefits |
 | 📝 **Multi-Step Job Posting** | 3-step wizard form for employers to post jobs with progress indicator |
 | 🏢 **Company Profiles** | Dedicated company pages with culture, benefits, ratings, and open positions |
 | 📑 **Job Application** | Modal-based application form with resume upload and cover letter |
-| 🔖 **Bookmark Jobs** | Save/bookmark jobs with localStorage persistence |
+| 🔖 **Saved Jobs Page** | Dedicated page to view and manage all bookmarked jobs with localStorage persistence |
 | 🌙 **Dark/Light Mode** | Toggle theme with system preference detection and localStorage persistence |
 | 📱 **Fully Responsive** | Mobile-first design that works perfectly on all screen sizes |
 | 🎨 **Premium Design** | Glassmorphism, gradients, micro-animations, and premium color palette |
+| ✨ **BorderGlow Effects** | Cursor-tracked glowing card borders with radial gradient animations |
+| ⬆️ **Back to Top** | Smooth scroll-to-top button appears after scrolling past 400px |
+| 🔄 **Route Progress Bar** | Gradient progress indicator during page navigation |
+| 💀 **Loading Skeletons** | Shimmer-animated skeleton placeholders while pages load |
 | 🔧 **SEO Optimized** | Full metadata, Open Graph tags, semantic HTML, and structured data |
 | 🚀 **CI/CD Pipeline** | GitHub Actions with lint, build, and auto-deploy to Vercel |
 
@@ -53,51 +57,63 @@
 job-board/
 ├── .github/
 │   └── workflows/
-│       └── deploy.yml          # CI/CD pipeline
+│       └── deploy.yml              # CI/CD pipeline
 ├── src/
 │   ├── app/
-│   │   ├── layout.js           # Root layout with metadata
-│   │   ├── page.js             # Home page
-│   │   ├── page.module.css     # Home page styles
-│   │   ├── globals.css         # Design system & global styles
+│   │   ├── layout.js               # Root layout with metadata
+│   │   ├── page.js                 # Home page
+│   │   ├── page.module.css         # Home page styles
+│   │   ├── globals.css             # Design system & global styles
+│   │   ├── loading.js              # Global loading skeleton
+│   │   ├── loading.module.css      # Skeleton styles
 │   │   ├── jobs/
-│   │   │   ├── page.js         # Job listings with search/filter
+│   │   │   ├── page.js             # Job listings with search/filter
 │   │   │   ├── page.module.css
 │   │   │   └── [id]/
-│   │   │       ├── page.js     # Job detail page
+│   │   │       ├── page.js         # Job detail page
 │   │   │       └── page.module.css
 │   │   ├── companies/
-│   │   │   ├── page.js         # Companies listing
+│   │   │   ├── page.js             # Companies listing
 │   │   │   ├── page.module.css
 │   │   │   └── [id]/
-│   │   │       ├── page.js     # Company detail page
+│   │   │       ├── page.js         # Company detail page
 │   │   │       └── page.module.css
+│   │   ├── saved-jobs/
+│   │   │   ├── page.js             # Saved/bookmarked jobs page
+│   │   │   ├── page.module.css
+│   │   │   └── loading.js          # Route-level loading skeleton
 │   │   └── post-job/
-│   │       ├── page.js         # Post a job (multi-step form)
+│   │       ├── page.js             # Post a job (multi-step form)
 │   │       └── page.module.css
 │   ├── components/
-│   │   ├── Navbar.js           # Navigation bar
+│   │   ├── Navbar.js               # Navigation bar
 │   │   ├── Navbar.module.css
-│   │   ├── Footer.js           # Footer
+│   │   ├── Footer.js               # Footer
 │   │   ├── Footer.module.css
-│   │   ├── SearchBar.js        # Search bar component
+│   │   ├── SearchBar.js            # Hero search bar
 │   │   ├── SearchBar.module.css
-│   │   ├── JobCard.js          # Job listing card
+│   │   ├── JobCard.js              # Job listing card
 │   │   ├── JobCard.module.css
-│   │   ├── JobFilters.js       # Sidebar filters
+│   │   ├── JobFilters.js           # Sidebar filters + salary slider
 │   │   ├── JobFilters.module.css
-│   │   ├── ApplyButton.js      # Application modal
+│   │   ├── ApplyButton.js          # Application modal
 │   │   ├── ApplyButton.module.css
-│   │   ├── BookmarkButton.js   # Save/bookmark jobs
+│   │   ├── BookmarkButton.js       # Save/bookmark toggle
 │   │   ├── BookmarkButton.module.css
-│   │   └── ThemeProvider.js    # Dark/Light mode provider
+│   │   ├── ThemeProvider.js        # Dark/Light mode provider
+│   │   ├── BorderGlow.js           # Cursor-tracked glow effect
+│   │   ├── BorderGlow.css
+│   │   ├── GlowCard.js             # Theme-aware glow card wrapper
+│   │   ├── BackToTop.js            # Scroll-to-top button
+│   │   ├── BackToTop.module.css
+│   │   └── RouteProgress.js        # Navigation progress bar
 │   └── lib/
-│       └── data.js             # Mock data & utility functions
-├── public/                     # Static assets
+│       └── data.js                 # Mock data & utility functions
+├── public/                         # Static assets
 ├── package.json
 ├── next.config.mjs
-├── DOCUMENTATION.md            # Detailed feature documentation
-└── README.md                   # This file
+├── DOCUMENTATION.md                # Detailed feature documentation
+└── README.md                       # This file
 ```
 
 ---

@@ -13,13 +13,16 @@
 9. [Bookmark / Save Jobs](#9-bookmark--save-jobs)
 10. [Dark/Light Theme Toggle](#10-darklight-theme-toggle)
 11. [Navigation & Routing](#11-navigation--routing)
-12. [Responsive Design](#12-responsive-design)
-13. [Design System](#13-design-system)
-14. [SEO & Metadata](#14-seo--metadata)
-15. [Performance Optimizations](#15-performance-optimizations)
-16. [CI/CD Pipeline](#16-cicd-pipeline)
-17. [Deployment](#17-deployment)
-18. [Architecture](#18-architecture)
+12. [Route Progress Bar](#12-route-progress-bar)
+13. [Back to Top Button](#13-back-to-top-button)
+14. [BorderGlow & GlowCard Effects](#14-borderglow--glowcard-effects)
+15. [Responsive Design](#15-responsive-design)
+16. [Design System](#16-design-system)
+17. [SEO & Metadata](#17-seo--metadata)
+18. [Performance Optimizations](#18-performance-optimizations)
+19. [CI/CD Pipeline](#19-cicd-pipeline)
+20. [Deployment](#20-deployment)
+21. [Architecture](#21-architecture)
 
 ---
 
@@ -87,6 +90,7 @@ The search system operates via URL search parameters, making all filtered views 
 | **Job Type** | Button list | Full-time, Part-time, Contract |
 | **Experience Level** | Button list | Junior, Mid, Senior, Lead |
 | **Work Mode** | Button list | Remote, Hybrid, On-site |
+| **Minimum Salary** | Range slider | $50,000 – $300,000 in $10K increments |
 | **Sort By** | Dropdown | Newest First, Highest Salary, Lowest Salary, Fewest Applicants |
 
 ### Search Implementation
@@ -259,13 +263,29 @@ Two-column layout: main content + sticky sidebar.
 
 ## 9. Bookmark / Save Jobs
 
+### Bookmark Button
+
 **Component:** `src/components/BookmarkButton.js`
 
-### Functionality
-- **Toggle Save:** Click to save/unsave a job
+- **Toggle Save:** Click to save/unsave a job from any job card or detail page
 - **Persistence:** Bookmarked job IDs stored in `localStorage` under `jobsphere-bookmarks`
 - **Visual Feedback:** Icon fills with color and label changes to "Saved"
 - **Animation:** Scale-in bounce animation on bookmark
+
+### Saved Jobs Page
+
+**Route:** `/saved-jobs`
+**File:** `src/app/saved-jobs/page.js`
+
+A dedicated page that displays all bookmarked/saved jobs.
+
+| Feature | Description |
+|---------|-------------|
+| **Filtered View** | Reads `jobsphere-bookmarks` from localStorage and displays matching job cards |
+| **Empty State** | Shows a message and "Browse Jobs" CTA when no jobs are saved |
+| **Hydration Safe** | Uses `useSyncExternalStore` to avoid server/client mismatch |
+| **Loading Skeleton** | Route-level `loading.js` shows shimmer skeleton while the page loads |
+| **Full JobCard Grid** | Reuses the same `JobCard` component as the main job listings |
 
 ---
 
@@ -309,11 +329,64 @@ Two-column layout: main content + sticky sidebar.
 | `/jobs/[id]` | Job Detail | SSG (12 pages) |
 | `/companies` | Companies Directory | Static |
 | `/companies/[id]` | Company Profile | SSG (8 pages) |
+| `/saved-jobs` | Saved/Bookmarked Jobs | Client-side (localStorage) |
 | `/post-job` | Post a Job Form | Static (client-side) |
 
 ---
 
-## 12. Responsive Design
+## 12. Route Progress Bar
+
+**Component:** `src/components/RouteProgress.js`
+
+A global navigation progress indicator shown at the top of the viewport during route transitions.
+
+### Implementation
+- **Click Detection:** Listens for clicks on internal `<a>` links (ignores `#`, `http`, `mailto:` links)
+- **Progress Simulation:** Starts at 15% and incrementally advances to 90% with randomized intervals
+- **Completion:** Snaps to 100% when the `pathname` changes (route fully loaded), then fades out
+- **Gradient Bar:** Styled with `linear-gradient(90deg, #6366f1, #06b6d4)` and a glow shadow
+- **No External Dependencies:** Built entirely with React hooks (`usePathname`, `useEffect`, `useRef`)
+- **Non-Blocking:** Uses `pointer-events: none` and `z-index: 9999` to avoid interfering with page content
+
+---
+
+## 13. Back to Top Button
+
+**Component:** `src/components/BackToTop.js`
+
+A floating scroll-to-top button that appears after scrolling past 400px.
+
+### Implementation
+- **Visibility Toggle:** Uses `scroll` event listener to show/hide based on `window.scrollY > 400`
+- **Smooth Scroll:** Calls `window.scrollTo({ top: 0, behavior: 'smooth' })`
+- **Chevron Icon:** Inline SVG with an upward-pointing chevron
+- **Accessible:** `aria-label="Back to top"` and unique `id="back-to-top"`
+- **CSS Animation:** Fade-in/fade-out transition when visibility changes
+
+---
+
+## 14. BorderGlow & GlowCard Effects
+
+**Components:** `src/components/BorderGlow.js` + `src/components/GlowCard.js`
+
+A premium cursor-tracking glow effect that highlights card borders as the user moves their mouse.
+
+### BorderGlow Component
+- **Cursor Tracking:** Calculates cursor angle and edge proximity relative to the card center
+- **Dynamic CSS Variables:** Sets `--cursor-angle` and `--edge-proximity` in real-time via `onPointerMove`
+- **Radial Gradients:** 7 overlapping radial gradients create a multi-color glow effect
+- **HSL Glow System:** Glow color is parameterized via HSL with 7 opacity levels
+- **Sweep Animation:** Optional animated sweep mode with eased cubic transitions
+- **Configurable Props:** `edgeSensitivity`, `glowRadius`, `glowIntensity`, `coneSpread`, `fillOpacity`, `borderRadius`
+
+### GlowCard Wrapper
+- **Theme-Aware:** Automatically sets background to dark (`#131a27`) or light (`#ffffff`) based on current theme
+- **Lazy-Loaded:** Uses `next/dynamic` with `ssr: false` to avoid hydration mismatch (canvas-like interactions)
+- **Default Colors:** Indigo → Purple → Cyan gradient matching the design system
+
+---
+
+## 15. Responsive Design
 
 ### Breakpoints
 
@@ -336,7 +409,7 @@ Two-column layout: main content + sticky sidebar.
 
 ---
 
-## 13. Design System
+## 16. Design System
 
 **File:** `src/app/globals.css`
 
@@ -376,7 +449,7 @@ Two-column layout: main content + sticky sidebar.
 
 ---
 
-## 14. SEO & Metadata
+## 17. SEO & Metadata
 
 ### Global Metadata (Root Layout)
 - Title template: `%s | JobSphere`
@@ -400,7 +473,7 @@ Two-column layout: main content + sticky sidebar.
 
 ---
 
-## 15. Performance Optimizations
+## 18. Performance Optimizations
 
 | Optimization | Implementation |
 |-------------|----------------|
@@ -412,10 +485,13 @@ Two-column layout: main content + sticky sidebar.
 | **Code Splitting** | Automatic per-route code splitting |
 | **Client Components** | Only interactive parts marked with `'use client'` |
 | **Minimal JS Bundle** | Static elements stay as Server Components |
+| **Lazy Loading** | `BorderGlow` dynamically imported with `next/dynamic` (ssr: false) |
+| **Loading Skeletons** | Route-level `loading.js` files with shimmer animations for perceived performance |
+| **Route Progress Bar** | Visual feedback during navigation to improve perceived speed |
 
 ---
 
-## 16. CI/CD Pipeline
+## 19. CI/CD Pipeline
 
 **File:** `.github/workflows/deploy.yml`
 
@@ -458,7 +534,7 @@ Two-column layout: main content + sticky sidebar.
 
 ---
 
-## 17. Deployment
+## 20. Deployment
 
 ### Live Production URL
 
@@ -489,20 +565,23 @@ The application is deployed to Vercel via the CI/CD pipeline. Every push to `mai
 
 ---
 
-## 18. Architecture
+## 21. Architecture
 
 ### Component Architecture
 
 ```
 RootLayout (Server Component)
 ├── ThemeProvider (Client Component - Context)
+├── RouteProgress (Client Component - navigation progress bar)
 ├── Navbar (Client Component - scroll/menu state)
 ├── {Page Content} (Server/Client depending on route)
 │   ├── SearchBar (Client - form state)
-│   ├── JobFilters (Client - URL state management)
+│   ├── JobFilters (Client - URL state + salary slider)
 │   ├── JobCard (Server - static rendering)
+│   ├── GlowCard (Client - wraps BorderGlow with theme)
 │   ├── ApplyButton (Client - modal state)
 │   └── BookmarkButton (Client - localStorage)
+├── BackToTop (Client Component - scroll-to-top)
 └── Footer (Server Component)
 ```
 
@@ -512,7 +591,7 @@ RootLayout (Server Component)
 lib/data.js (Mock Data Layer)
     ├── getJob(id) → Job Detail Page
     ├── getCompany(id) → Company Detail Page
-    ├── searchJobs(filters) → Jobs Listing Page
+    ├── searchJobs(filters) → Jobs Listing Page (supports minSalary filter)
     ├── getFeaturedJobs() → Home Page
     ├── getJobsByCompany(id) → Company Page
     ├── getJobsByCategory(id) → Filtered Jobs
@@ -530,14 +609,19 @@ lib/data.js (Mock Data Layer)
 | Job Detail | Server | Data fetching, static generation |
 | Company Detail | Server | Data fetching, static generation |
 | Jobs Page | Server | Server-side filtering via searchParams |
+| Saved Jobs Page | Client | localStorage access for bookmarks |
 | Navbar | Client | Scroll detection, mobile menu toggle |
 | SearchBar | Client | Form state, router navigation |
-| JobFilters | Client | URL parameter management |
+| JobFilters | Client | URL parameter management, salary slider |
 | ApplyButton | Client | Modal state management |
 | BookmarkButton | Client | localStorage access |
 | ThemeProvider | Client | Context, localStorage, DOM manipulation |
 | Post Job | Client | Multi-step form state |
+| BorderGlow | Client | Cursor tracking, CSS variable manipulation |
+| GlowCard | Client | Theme context, dynamic import |
+| BackToTop | Client | Scroll event listener, smooth scroll |
+| RouteProgress | Client | Pathname tracking, click interception |
 
 ---
 
-*Documentation generated for JobSphere v0.1.0*
+*Documentation generated for JobSphere v1.0.0*
