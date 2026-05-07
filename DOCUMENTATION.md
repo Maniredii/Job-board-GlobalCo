@@ -27,6 +27,14 @@
 
 **JobSphere** is a modern, full-featured job board platform built with Next.js 16 (App Router), React 19, and a custom vanilla CSS design system. It provides a premium user experience for both job seekers and employers.
 
+### Live Links
+
+| Resource | URL |
+|----------|-----|
+| 🔗 **Live Site** | [job-board-global-co.vercel.app](https://job-board-global-co.vercel.app) |
+| 💻 **GitHub Repo** | [github.com/Maniredii/Job-board-GlobalCo](https://github.com/Maniredii/Job-board-GlobalCo) |
+| 🔄 **CI/CD Pipeline** | [GitHub Actions](https://github.com/Maniredii/Job-board-GlobalCo/actions) |
+
 ### Key Metrics
 - **12** curated job listings across 8 categories
 - **8** company profiles with full details
@@ -451,6 +459,12 @@ Two-column layout: main content + sticky sidebar.
 ---
 
 ## 17. Deployment
+
+### Live Production URL
+
+🔗 **https://job-board-global-co.vercel.app**
+
+The application is deployed to Vercel via the CI/CD pipeline. Every push to `main` triggers an automatic production deployment.
 
 ### Vercel Deployment Steps
 

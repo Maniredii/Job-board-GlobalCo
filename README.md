@@ -10,7 +10,7 @@
 
 **A premium, feature-rich job board built with Next.js 16, React 19, and vanilla CSS. Featuring a stunning glassmorphism UI, dark/light mode, advanced search & filtering, multi-step job posting, and full CI/CD deployment to Vercel.**
 
-[🔗 Live Demo](#) · [📖 Documentation](./DOCUMENTATION.md) · [🐛 Report Bug](../../issues) · [✨ Request Feature](../../issues)
+[🔗 Live Demo](https://job-board-global-co.vercel.app) · [📖 Documentation](./DOCUMENTATION.md) · [🐛 Report Bug](../../issues) · [✨ Request Feature](../../issues)
 
 </div>
 
@@ -113,8 +113,8 @@ job-board/
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/YOUR_USERNAME/job-board.git
-cd job-board
+git clone https://github.com/Maniredii/Job-board-GlobalCo.git
+cd Job-board-GlobalCo
 
 # 2. Install dependencies
 npm install
