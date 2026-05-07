@@ -126,6 +126,26 @@ export default function JobFilters({ currentFilters }) {
         </div>
       </div>
 
+      {/* Salary Range */}
+      <div className={styles.filterGroup}>
+        <label className={styles.filterLabel}>Minimum Salary</label>
+        <div className={styles.sliderWrapper}>
+          <input
+            type="range"
+            min="50000"
+            max="300000"
+            step="10000"
+            className={styles.slider}
+            value={currentFilters.minSalary || 50000}
+            onChange={(e) => updateFilter('minSalary', e.target.value)}
+            id="filter-salary-slider"
+          />
+          <div className={styles.sliderValue}>
+            ${parseInt(currentFilters.minSalary || 50000).toLocaleString()}+
+          </div>
+        </div>
+      </div>
+
       {/* Sort */}
       <div className={styles.filterGroup}>
         <label className={styles.filterLabel}>Sort By</label>

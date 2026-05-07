@@ -574,7 +574,7 @@ export function getFeaturedJobs() {
   return jobs.filter(j => j.featured);
 }
 
-export function searchJobs({ query, category, type, level, remote, location, sortBy = 'newest' }) {
+export function searchJobs({ query, category, type, level, remote, location, sortBy = 'newest', minSalary }) {
   let results = [...jobs];
 
   if (query) {
@@ -605,6 +605,11 @@ export function searchJobs({ query, category, type, level, remote, location, sor
   if (location) {
     const loc = location.toLowerCase();
     results = results.filter(j => j.location.toLowerCase().includes(loc));
+  }
+
+  if (minSalary) {
+    const minSal = parseInt(minSalary, 10);
+    results = results.filter(j => j.salary.max >= minSal || j.salary.min >= minSal);
   }
 
   // Sorting

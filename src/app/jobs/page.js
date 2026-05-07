@@ -16,9 +16,10 @@ export default async function JobsPage({ searchParams }) {
   const level = params?.level || '';
   const remote = params?.remote || '';
   const location = params?.location || '';
+  const minSalary = params?.minSalary || '';
   const sortBy = params?.sortBy || 'newest';
 
-  const filteredJobs = searchJobs({ query, category, type, level, remote, location, sortBy });
+  const filteredJobs = searchJobs({ query, category, type, level, remote, location, sortBy, minSalary });
   const activeCategory = categories.find(c => c.id === category);
 
   return (
@@ -43,7 +44,7 @@ export default async function JobsPage({ searchParams }) {
             {/* Sidebar Filters */}
             <aside className={styles.sidebar}>
               <JobFilters
-                currentFilters={{ query, category, type, level, remote, location, sortBy }}
+                currentFilters={{ query, category, type, level, remote, location, sortBy, minSalary }}
               />
             </aside>
 

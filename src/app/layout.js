@@ -2,6 +2,8 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import BackToTop from '@/components/BackToTop';
+import RouteProgress from '@/components/RouteProgress';
 import { ThemeProvider } from '@/components/ThemeProvider';
 
 const inter = Inter({
@@ -40,11 +42,13 @@ export default function RootLayout({ children }) {
     <html lang="en" className={inter.className} suppressHydrationWarning>
       <body>
         <ThemeProvider>
+          <RouteProgress />
           <Navbar />
           <main style={{ minHeight: 'calc(100vh - var(--nav-height))' }}>
             {children}
           </main>
           <Footer />
+          <BackToTop />
         </ThemeProvider>
       </body>
     </html>

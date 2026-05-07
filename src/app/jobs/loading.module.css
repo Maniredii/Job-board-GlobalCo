@@ -1,0 +1,68 @@
+.page {
+  padding-top: 2rem;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.filterSkeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: var(--color-bg-card, #fff);
+  border: 1px solid var(--color-border, #e5e7eb);
+  border-radius: 1rem;
+}
+
+.listings {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.cardSkeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.5rem;
+  background: var(--color-bg-card, #fff);
+  border: 1px solid var(--color-border, #e5e7eb);
+  border-radius: 1rem;
+}
+
+.shimmer {
+  border-radius: 0.5rem;
+  background: linear-gradient(
+    90deg,
+    var(--color-bg-secondary, #f3f4f6) 25%,
+    var(--color-bg-card, #e5e7eb) 50%,
+    var(--color-bg-secondary, #f3f4f6) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}

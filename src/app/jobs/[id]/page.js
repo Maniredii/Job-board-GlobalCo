@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { getJobWithCompany, jobs, formatSalary, timeAgo, getJobsByCompany } from '@/lib/data';
+import { getJobWithCompany, jobs, formatSalary, timeAgo, getJobsByCompany, getJobsByCategory, getCompany } from '@/lib/data';
 import ApplyButton from '@/components/ApplyButton';
 import BookmarkButton from '@/components/BookmarkButton';
 import styles from './page.module.css';
@@ -36,6 +36,7 @@ export default async function JobDetailPage({ params }) {
 
   const company = jobData.companyData;
   const relatedJobs = getJobsByCompany(jobData.company).filter(j => j.id !== jobData.id).slice(0, 3);
+  const similarJobs = getJobsByCategory(jobData.category).filter(j => j.id !== jobData.id).slice(0, 3);
 
   return (
     <div className={styles.page}>
@@ -215,6 +216,24 @@ export default async function JobDetailPage({ params }) {
                       <span className={styles.relatedJobMeta}>{job.type} • {job.remote}</span>
                     </Link>
                   ))}
+                </div>
+              </div>
+            )}
+
+            {/* Similar Jobs */}
+            {similarJobs.length > 0 && (
+              <div className={styles.sideCard}>
+                <h3 className={styles.sideCardTitle}>Similar Jobs in {jobData.category}</h3>
+                <div className={styles.relatedJobs}>
+                  {similarJobs.map((job) => {
+                    const jobCompany = getCompany(job.company);
+                    return (
+                      <Link key={job.id} href={`/jobs/${job.id}`} className={styles.relatedJob}>
+                        <span className={styles.relatedJobTitle}>{job.title}</span>
+                        <span className={styles.relatedJobMeta}>{jobCompany?.name} • {job.location}</span>
+                      </Link>
+                    );
+                  })}
                 </div>
               </div>
             )}

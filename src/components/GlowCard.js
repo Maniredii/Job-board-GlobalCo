@@ -1,7 +1,14 @@
 'use client';
 
-import BorderGlow from '@/components/BorderGlow';
+import dynamic from 'next/dynamic';
 import { useTheme } from '@/components/ThemeProvider';
+
+const BorderGlow = dynamic(() => import('@/components/BorderGlow'), {
+  ssr: false,
+  loading: () => (
+    <div style={{ borderRadius: 20, border: '1px solid var(--color-border, #e5e7eb)', overflow: 'hidden' }} />
+  ),
+});
 
 export default function GlowCard({
   children,

@@ -26,6 +26,7 @@ export default function Navbar() {
     { href: '/', label: 'Home' },
     { href: '/jobs', label: 'Find Jobs' },
     { href: '/companies', label: 'Companies' },
+    { href: '/saved-jobs', label: 'Saved Jobs' },
     { href: '/post-job', label: 'Post a Job' },
   ];
 

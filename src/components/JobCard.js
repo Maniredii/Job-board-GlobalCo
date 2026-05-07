@@ -1,10 +1,17 @@
 'use client';
 
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { getCompany, formatSalary, timeAgo } from '@/lib/data';
-import BorderGlow from '@/components/BorderGlow';
 import { useTheme } from '@/components/ThemeProvider';
 import styles from './JobCard.module.css';
+
+const BorderGlow = dynamic(() => import('@/components/BorderGlow'), {
+  ssr: false,
+  loading: () => (
+    <div style={{ borderRadius: 20, border: '1px solid var(--color-border, #e5e7eb)', overflow: 'hidden' }} />
+  ),
+});
 
 export default function JobCard({ job, featured = false }) {
   const company = getCompany(job.company);
